@@ -1,0 +1,27 @@
+{
+  "name": "start",
+  "version": "1.0.0",
+  "description": "My startpage.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/metakirby5/start.git"
+  },
+  "keywords": [
+    "startpage",
+    "start",
+    "page"
+  ],
+  "author": "Ethan Chan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/metakirby5/start/issues"
+  },
+  "homepage": "https://github.com/metakirby5/start#readme",
+  "dependencies": {
+    "webpack": "^1.13.2"
+  }
+}
