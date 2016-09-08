@@ -50,10 +50,15 @@ var config = {
 
 // Development
 if (process.env.NODE_ENV === 'production') {
-  // Minify
-  config.plugins.unshift(new webpack.optimize.UglifyJsPlugin({
-    compress: {warnings: false}
-  }))
+  config.plugins.unshift(
+    // Deduplicate
+    new webpack.optimize.DedupePlugin(),
+
+    // Minify
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {warnings: false}
+    }
+  ));
 } else {
   // Source maps
   config.devtool = 'eval';
