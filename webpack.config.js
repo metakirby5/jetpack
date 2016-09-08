@@ -8,9 +8,10 @@ var SRC_PATH = path.join(__dirname, 'src')
 
 var config = {
   // What file to start at
-  entry: [
-    path.join(SRC_PATH, 'main.coffee'),
-  ],
+  entry: {
+    app: [path.join(SRC_PATH, 'main.coffee')],
+    vendor: ['react', 'react-dom'],
+  },
 
   // Where to output
   output: {
@@ -40,7 +41,11 @@ var config = {
         loader: 'style!css',
       },
     ]
-  }
+  },
+
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
+  ],
 };
 
 // Development
@@ -49,12 +54,12 @@ if (process.env.NODE_ENV !== 'production') {
   config.devtool = 'eval';
 
   // Hot reloading
-  config.plugins = [new webpack.HotModuleReplacementPlugin()];
-  config.entry.unshift(
+  config.entry.app.unshift(
     'webpack/hot/dev-server',
     'webpack-dev-server/client?http://0.0.0.0:3000'
   );
   config.module.loaders[0].loaders.unshift('react-hot-loader/webpack');
+  config.plugins.push(new webpack.HotModuleReplacementPlugin());
 }
 
 module.exports = config;
