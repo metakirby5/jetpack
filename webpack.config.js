@@ -4,12 +4,15 @@ var path = require('path')
   , webpack = require('webpack');
 
 const SRC_PATH = path.join(__dirname, 'src')
-    , BUILD_PATH = path.join(__dirname, 'static');
+    , BUILD_PATH = path.join(__dirname, 'static')
+    , VENDORS = ['node_modules'];
+
+const VENDOR_RE = new RegExp(VENDORS.join('|'));
 
 // Check if module is vendor, for chunking
 const isVendor = (module) => {
   var r = module.userRequest;
-  return typeof r === 'string' && r.indexOf('/node_modules/') >= 0;
+  return typeof r === 'string' && r.match(VENDOR_RE);
 }
 
 var config = {
@@ -21,6 +24,16 @@ var config = {
     path: BUILD_PATH,
     publicPath: '/static/',
     filename: '[name].js',
+  },
+
+  // Where to load modules from
+  resolveLoader: {
+    modulesDirectories: VENDORS
+  },
+
+  // What extensions to load
+  resolve: {
+    extensions: ['', '.js', '.coffee', '.styl']
   },
 
   // Don't tolerate errors
@@ -42,12 +55,12 @@ var config = {
       {
         test: /\.coffee$/,
         loader: 'coffee-lint',
-        exclude: /node_modules/
+        exclude: VENDOR_RE
       },
       {
         test: /\.styl/,
         loader: 'stylint',
-        exclude: /node_modules/
+        exclude: VENDOR_RE
       },
     ],
 
@@ -60,15 +73,15 @@ var config = {
       { // Stylus
         test: /\.styl$/,
         exclude: /\.u\.styl/,
-        loader: 'style!css!stylus',
+        loaders: ['style', 'css', 'stylus']
       },
       { // Reference-counted stylus
         test: /\.u\.styl/,
-        loader: 'style/useable!css!stylus',
+        loaders: ['style/useable', 'css', 'stylus']
       },
       { // Plain CSS
         test: /\.css$/,
-        loader: 'style!css',
+        loaders: ['style', 'css']
       },
     ],
   },
