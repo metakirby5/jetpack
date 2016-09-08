@@ -36,9 +36,6 @@ var config = {
     extensions: ['', '.js', '.coffee', '.styl']
   },
 
-  // Don't tolerate errors
-  bail: true,
-
   // Coffeelint options
   coffeelint: {
     configFile: './coffeelint.json'

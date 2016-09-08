@@ -23,7 +23,6 @@ BEST_JS_LIBS = [
 
 example = React.createClass
   getInitialState: ->
-    alert 'getting state'
     query: ''
 
   handleChange: (e) ->
