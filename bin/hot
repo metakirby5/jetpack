@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+'use strict';
+
+var webpack = require('webpack')
+  , WebpackDevServer = require('webpack-dev-server')
+  , path = require('path')
+  , config = require('../webpack.config');
+
+new WebpackDevServer(webpack(config), {
+  // Content root (with index.html)
+  contentBase: path.join(__dirname, '../serve'),
+
+  // Location
+  publicPath: config.output.publicPath,
+
+  // Hot reloading
+  hot: true,
+
+  // Gzip
+  compress: true,
+
+  // Allow routing
+  historyApiFallback: true,
+
+  stats: {
+    // Do not show list of hundreds of files included in a bundle
+    chunkModules: false,
+    colors: true
+  },
+}).listen(3000, '0.0.0.0', (err, result) => {
+  console.log(err || 'Listening at 0.0.0.0:3000');
+});

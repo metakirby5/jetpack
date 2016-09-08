@@ -4,7 +4,7 @@
   "description": "My startpage.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "bin/hot"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,17 @@
     "url": "https://github.com/metakirby5/start/issues"
   },
   "homepage": "https://github.com/metakirby5/start#readme",
-  "dependencies": {
-    "webpack": "^1.13.2"
+  "devDependencies": {
+    "coffee-loader": "^0.7.2",
+    "coffee-script": "^1.10.0",
+    "css-loader": "^0.25.0",
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1",
+    "react-hot-loader": "^3.0.0-beta.3",
+    "style-loader": "^0.13.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^2.3.1",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.15.1"
   }
 }
