@@ -23,6 +23,19 @@ var config = {
     filename: '[name].js',
   },
 
+  // Don't tolerate errors
+  bail: true,
+
+  // Coffeelint options
+  coffeelint: {
+    configFile: './coffeelint.json'
+  },
+
+  // Stylint options
+  stylint: {
+    config: './.stylintrc'
+  },
+
   module: {
     // Linters, etc
     preLoaders: [
