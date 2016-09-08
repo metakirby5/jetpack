@@ -8,7 +8,7 @@ var webpack = require('webpack')
 
 new WebpackDevServer(webpack(config), {
   // Content root (with index.html)
-  contentBase: path.join(__dirname, '../serve'),
+  contentBase: path.join(__dirname, '..'),
 
   // Location
   publicPath: config.output.publicPath,
