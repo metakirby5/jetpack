@@ -49,7 +49,12 @@ var config = {
 };
 
 // Development
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'production') {
+  // Minify
+  config.plugins.unshift(new webpack.optimize.UglifyJsPlugin({
+    compress: {warnings: false}
+  }))
+} else {
   // Source maps
   config.devtool = 'eval';
 

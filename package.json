@@ -4,7 +4,8 @@
   "description": "My startpage.",
   "main": "index.js",
   "scripts": {
-    "start": "bin/hot"
+    "start": "bin/hot",
+    "build": "NODE_ENV=production webpack"
   },
   "repository": {
     "type": "git",
