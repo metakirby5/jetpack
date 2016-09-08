@@ -3,27 +3,29 @@
 var path = require('path')
   , webpack = require('webpack');
 
-var SRC_PATH = path.join(__dirname, 'src')
-  , BUILD_PATH = path.join(__dirname, 'static');
+const SRC_PATH = path.join(__dirname, 'src')
+    , BUILD_PATH = path.join(__dirname, 'static');
+
+const isVendor = (module) => {
+  var r = module.userRequest;
+  return typeof r === 'string' && r.indexOf('/node_modules/') >= 0;
+}
 
 var config = {
   // What file to start at
-  entry: {
-    app: [path.join(SRC_PATH, 'main.coffee')],
-    vendor: ['react', 'react-dom'],
-  },
+  entry: [path.join(SRC_PATH, 'main.coffee')],
 
   // Where to output
   output: {
     path: BUILD_PATH,
     publicPath: '/static/',
-    filename: 'main.js',
+    filename: '[name].js',
   },
 
   module: {
     // What to load
     loaders: [
-      { // Coffeescript
+      { // Coffeescript (DO NOT MOVE)
         test: /\.coffee$/,
         loaders: ['coffee'],
       },
@@ -44,32 +46,35 @@ var config = {
   },
 
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: isVendor
+    }),
   ],
 };
 
 // Development
 if (process.env.NODE_ENV === 'production') {
   config.plugins.unshift(
-    // Deduplicate
-    new webpack.optimize.DedupePlugin(),
+    // Production environment variable
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
 
+    // Deduplicate
+    new webpack.optimize.DedupePlugin()
+  );
+  config.plugins.push(
     // Minify
     new webpack.optimize.UglifyJsPlugin({
       compress: {warnings: false}
-    }
-  ));
+    })
+  );
 } else {
   // Source maps
   config.devtool = 'eval';
-
-  // Hot reloading
-  config.entry.app.unshift(
-    'webpack/hot/dev-server',
-    'webpack-dev-server/client?http://0.0.0.0:3000'
-  );
-  config.module.loaders[0].loaders.unshift('react-hot-loader/webpack');
-  config.plugins.push(new webpack.HotModuleReplacementPlugin());
 }
 
 module.exports = config;

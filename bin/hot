@@ -6,6 +6,18 @@ var webpack = require('webpack')
   , path = require('path')
   , config = require('../webpack.config');
 
+const HOST = '0.0.0.0'
+    , PORT = 3000
+
+// Add hot loading options
+config.entry.unshift(
+  'webpack/hot/only-dev-server',
+  `webpack-dev-server/client?http://${HOST}:${PORT}`
+);
+// loaders[0] is coffee
+config.module.loaders[0].loaders.unshift('react-hot-loader/webpack');
+config.plugins.unshift(new webpack.HotModuleReplacementPlugin());
+
 new WebpackDevServer(webpack(config), {
   // Content root (with index.html)
   contentBase: path.join(__dirname, '..'),
@@ -27,6 +39,6 @@ new WebpackDevServer(webpack(config), {
     chunkModules: false,
     colors: true
   },
-}).listen(3000, '0.0.0.0', (err, result) => {
-  console.log(err || 'Listening at 0.0.0.0:3000');
+}).listen(PORT, HOST, (err, result) => {
+  console.log(err || `Listening at ${HOST}:${PORT}`);
 });
