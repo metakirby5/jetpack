@@ -6,6 +6,7 @@ var path = require('path')
 const SRC_PATH = path.join(__dirname, 'src')
     , BUILD_PATH = path.join(__dirname, 'static');
 
+// Check if module is vendor, for chunking
 const isVendor = (module) => {
   var r = module.userRequest;
   return typeof r === 'string' && r.indexOf('/node_modules/') >= 0;
@@ -23,6 +24,20 @@ var config = {
   },
 
   module: {
+    // Linters, etc
+    preLoaders: [
+      {
+        test: /\.coffee$/,
+        loader: 'coffee-lint',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.styl/,
+        loader: 'stylint',
+        exclude: /node_modules/
+      },
+    ],
+
     // What to load
     loaders: [
       { // Coffeescript (DO NOT MOVE)
@@ -42,7 +57,7 @@ var config = {
         test: /\.css$/,
         loader: 'style!css',
       },
-    ]
+    ],
   },
 
   plugins: [
