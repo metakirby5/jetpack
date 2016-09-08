@@ -81,7 +81,7 @@ var config = {
   ],
 };
 
-// Development
+// Production
 if (process.env.NODE_ENV === 'production') {
   config.plugins.unshift(
     // Production environment variable
@@ -100,9 +100,36 @@ if (process.env.NODE_ENV === 'production') {
       compress: {warnings: false}
     })
   );
+
+// Development
 } else {
   // Source maps
   config.devtool = 'eval';
+
+  // -- Hot loading --
+
+  config.entry.unshift('webpack/hot/only-dev-server');
+
+  // loaders[0] is coffee
+  config.module.loaders[0].loaders.unshift('react-hot-loader/webpack');
+  config.plugins.unshift(new webpack.HotModuleReplacementPlugin());
+
+  config.devServer = {
+    // Adjust entry point
+    inline: true,
+
+    // Hot reloading
+    hot: true,
+
+    // Allow routing
+    historyApiFallback: true,
+
+    stats: {
+      // Do not show list of hundreds of files included in a bundle
+      chunkModules: false,
+      colors: true
+    },
+  }
 }
 
 module.exports = config;
