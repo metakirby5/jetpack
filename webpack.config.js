@@ -31,11 +31,6 @@ var config = {
     modulesDirectories: VENDORS
   },
 
-  // What extensions to load
-  resolve: {
-    extensions: ['', '.js', '.coffee', '.styl']
-  },
-
   // Coffeelint options
   coffeelint: {
     configFile: 'coffeelint.json'
@@ -86,6 +81,10 @@ var config = {
       { // Plain CSS
         test: /\.css$/,
         loaders: ['style', 'css']
+      },
+      { // Media
+        test: /\.(png|jpe?g|gif|svg|woff|woff2|eot|ttf)$/,
+        loaders: ['url'],
       },
     ],
   },
