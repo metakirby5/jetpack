@@ -1,6 +1,6 @@
 # jetpack
 
-Fully configurable, minimal, from-scratch webpack boilerplate with:
+Minimal, from-scratch webpack boilerplate with:
   - Coffeescript
   - Coffeelint
   - Stylus
