@@ -38,12 +38,19 @@ var config = {
 
   // Coffeelint options
   coffeelint: {
-    configFile: './coffeelint.json'
+    configFile: 'coffeelint.json'
+  },
+
+  // Stylus options
+  stylus: {
+    use: [require('nib')()],
+    import: ['~nib/lib/nib/index.styl'],
+    preferPathResolver: 'webpack',
   },
 
   // Stylint options
   stylint: {
-    config: './.stylintrc'
+    config: '.stylintrc'
   },
 
   module: {
