@@ -26,11 +26,12 @@ var config = {
     filename: '[name].js',
   },
 
-  // Where to load modules and loaders from
+  // Where to load modules from
   resolve: {
     modulesDirectories: VENDORS,
   },
 
+  // Where to load loaders from
   resolveLoader: {
     modulesDirectories: VENDORS,
   },
@@ -55,12 +56,12 @@ var config = {
   module: {
     // Linters, etc
     preLoaders: [
-      {
+      { // Coffeelint
         test: /\.coffee$/,
         loader: 'coffee-lint',
         exclude: VENDOR_RE,
       },
-      {
+      { // Stylint
         test: /\.styl/,
         loader: 'stylint',
         exclude: VENDOR_RE,
