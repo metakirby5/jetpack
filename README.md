@@ -7,6 +7,7 @@ Minimal, from-scratch webpack boilerplate with:
   - Nib
   - Stylint
   - React
+  - Skeleton CSS
   - Source maps + React Hot Loader 3.0 beta 3 for development
   - Deduplication + minification for production
 
