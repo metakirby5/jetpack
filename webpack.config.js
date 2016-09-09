@@ -136,7 +136,7 @@ if (process.env.NODE_ENV === 'production') {
 // Development
 } else {
   // Source maps
-  config.devtool = 'eval';
+  config.devtool = 'cheap-module-eval-source-map';
 
   // -- Hot loading --
 
