@@ -1,22 +1,27 @@
 {
-  "name": "start",
-  "description": "My startpage.",
+  "name": "jetpack",
+  "description": "Webpack + Coffeescript + Stylus + React boilerplate",
   "main": "src/main.js",
   "authors": [
     "Ethan Chan"
   ],
   "license": "MIT",
   "keywords": [
-    "startpage",
-    "start",
-    "page"
+    "boilerplate",
+    "webpack",
+    "coffeescript",
+    "stylus",
+    "react"
   ],
-  "homepage": "https://github.com/metakirby5/start",
+  "homepage": "https://github.com/metakirby5/jetpack",
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "skeleton": "^2.0.4"
+  }
 }
