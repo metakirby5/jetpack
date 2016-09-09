@@ -86,7 +86,7 @@
     "expect": "never",
     "error": true
   },
-  "sortOrder": "grouped",
+  "sortOrder": false,
   "stackedProperties": {
     "expect": "never",
     "error": true

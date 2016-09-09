@@ -29,6 +29,7 @@ var config = {
   // Where to load modules from
   resolve: {
     modulesDirectories: VENDORS,
+    extensions: ['', '.coffee', '.styl', '.js', '.css']
   },
 
   // Where to load loaders from
