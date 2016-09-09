@@ -1,11 +1,15 @@
 'use strict';
 
-var path = require('path')
-  , webpack = require('webpack');
+const path = require('path')
+    , webpack = require('webpack')
+    , merge = require('webpack-merge');
 
 const
+    // Environment
+      ENV = process.env.npm_lifecycle_event
+
     // Module folders
-      VENDORS = ['node_modules', 'bower_components']
+    , VENDORS = ['node_modules', 'bower_components']
     , VENDOR_RE = new RegExp(VENDORS.join('|'))
 
     // Input and output folders
@@ -38,11 +42,6 @@ var config = {
   resolve: {
     modulesDirectories: VENDORS,
     extensions: ['', '.coffee', '.styl', '.js', '.css']
-  },
-
-  // Where to load loaders from
-  resolveLoader: {
-    modulesDirectories: VENDORS,
   },
 
   // Coffeelint options
@@ -80,7 +79,7 @@ var config = {
 
     // Files to load
     loaders: [
-      { // Coffeescript (DO NOT MOVE)
+      { // Coffeescript
         test: /\.coffee$/,
         loaders: ['coffee'],
       },
@@ -98,7 +97,7 @@ var config = {
         loaders: ['style', 'css'],
       },
       { // Media
-        test: /\.(png|jpe?g|gif|svg|woff|woff2|eot|ttf)$/,
+        test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf)$/,
         loaders: ['url'],
       },
     ],
@@ -113,56 +112,70 @@ var config = {
   ],
 };
 
-// Production
-if (process.env.NODE_ENV === 'production') {
-  config.plugins.unshift(
-    // Production environment variable
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production'),
+// Options based on environment
+switch (ENV) {
+  case 'start': // Development
+    console.log('Running development server...');
+    config.entry.unshift('react-hot-loader/patch');
+    module.exports = merge(config, {
+      // Source maps
+      devtool: 'cheap-module-eval-source-map',
+
+      // -- Hot loading --
+
+      module: {
+        loaders: [
+          {
+            test: /\.coffee$/,
+            loaders: ['react-hot-loader/webpack'],
+          },
+        ],
       },
-    }),
 
-    // Deduplicate
-    new webpack.optimize.DedupePlugin()
-  );
-  config.plugins.push(
-    // Minify
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {warnings: false},
-    })
-  );
+      plugins: [new webpack.HotModuleReplacementPlugin()],
 
-// Development
-} else {
-  // Source maps
-  config.devtool = 'cheap-module-eval-source-map';
+      devServer: {
+        // Adjust entry point
+        inline: true,
 
-  // -- Hot loading --
+        // Show progress
+        progress: true,
 
-  config.entry.unshift('react-hot-loader/patch');
+        // Hot reloading
+        hot: true,
 
-  // loaders[0] is coffee
-  config.module.loaders[0].loaders.unshift('react-hot-loader/webpack');
-  config.plugins.unshift(new webpack.HotModuleReplacementPlugin());
+        // Allow routing
+        historyApiFallback: true,
 
-  config.devServer = {
-    // Adjust entry point
-    inline: true,
+        // Display options
+        stats: {
+          // Do not show list of hundreds of files included in a bundle
+          chunkModules: false,
+          colors: true,
+        },
+      },
+    });
+    break;
 
-    // Hot reloading
-    hot: true,
+  case 'build': // Production
+    console.log('Building production scripts...');
+    module.exports = merge(config, {
+      plugins: [
+        // Production environment variable
+        new webpack.DefinePlugin({
+          'process.env': {
+            'NODE_ENV': JSON.stringify('production'),
+          },
+        }),
 
-    // Allow routing
-    historyApiFallback: true,
+        // Deduplicate
+        new webpack.optimize.DedupePlugin(),
 
-    // Display options
-    stats: {
-      // Do not show list of hundreds of files included in a bundle
-      chunkModules: false,
-      colors: true,
-    },
-  };
+        // Minify
+        new webpack.optimize.UglifyJsPlugin({
+          compress: {warnings: false},
+        }),
+      ],
+    });
+    break;
 }
-
-module.exports = config;
