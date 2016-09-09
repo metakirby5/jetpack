@@ -141,7 +141,11 @@ if (process.env.NODE_ENV === 'production') {
   // -- Hot loading --
 
   config.entry.unshift('react-hot-loader/patch');
+
+  // loaders[0] is coffee
+  config.module.loaders[0].loaders.unshift('react-hot-loader/webpack');
   config.plugins.unshift(new webpack.HotModuleReplacementPlugin());
+
   config.devServer = {
     // Adjust entry point
     inline: true,
