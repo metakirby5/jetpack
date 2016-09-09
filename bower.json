@@ -1,0 +1,22 @@
+{
+  "name": "start",
+  "description": "My startpage.",
+  "main": "src/main.js",
+  "authors": [
+    "Ethan Chan"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "startpage",
+    "start",
+    "page"
+  ],
+  "homepage": "https://github.com/metakirby5/start",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

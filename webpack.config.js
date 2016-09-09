@@ -5,7 +5,7 @@ var path = require('path')
 
 const SRC_PATH = path.join(__dirname, 'src')
     , BUILD_PATH = path.join(__dirname, 'static')
-    , VENDORS = ['node_modules'];
+    , VENDORS = ['node_modules', 'bower_components'];
 
 const VENDOR_RE = new RegExp(VENDORS.join('|'));
 
@@ -26,14 +26,18 @@ var config = {
     filename: '[name].js',
   },
 
-  // Where to load modules from
+  // Where to load modules and loaders from
+  resolve: {
+    modulesDirectories: VENDORS,
+  },
+
   resolveLoader: {
-    modulesDirectories: VENDORS
+    modulesDirectories: VENDORS,
   },
 
   // Coffeelint options
   coffeelint: {
-    configFile: 'coffeelint.json'
+    configFile: 'coffeelint.json',
   },
 
   // Stylus options
@@ -45,7 +49,7 @@ var config = {
 
   // Stylint options
   stylint: {
-    config: '.stylintrc'
+    config: '.stylintrc',
   },
 
   module: {
@@ -54,12 +58,12 @@ var config = {
       {
         test: /\.coffee$/,
         loader: 'coffee-lint',
-        exclude: VENDOR_RE
+        exclude: VENDOR_RE,
       },
       {
         test: /\.styl/,
         loader: 'stylint',
-        exclude: VENDOR_RE
+        exclude: VENDOR_RE,
       },
     ],
 
@@ -72,15 +76,15 @@ var config = {
       { // Stylus
         test: /\.styl$/,
         exclude: /\.u\.styl/,
-        loaders: ['style', 'css', 'stylus']
+        loaders: ['style', 'css', 'stylus'],
       },
       { // Reference-counted stylus
         test: /\.u\.styl/,
-        loaders: ['style/useable', 'css', 'stylus']
+        loaders: ['style/useable', 'css', 'stylus'],
       },
       { // Plain CSS
         test: /\.css$/,
-        loaders: ['style', 'css']
+        loaders: ['style', 'css'],
       },
       { // Media
         test: /\.(png|jpe?g|gif|svg|woff|woff2|eot|ttf)$/,
@@ -92,7 +96,7 @@ var config = {
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      minChunks: isVendor
+      minChunks: isVendor,
     }),
   ],
 };
@@ -103,8 +107,8 @@ if (process.env.NODE_ENV === 'production') {
     // Production environment variable
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
+        'NODE_ENV': JSON.stringify('production'),
+      },
     }),
 
     // Deduplicate
@@ -113,7 +117,7 @@ if (process.env.NODE_ENV === 'production') {
   config.plugins.push(
     // Minify
     new webpack.optimize.UglifyJsPlugin({
-      compress: {warnings: false}
+      compress: {warnings: false},
     })
   );
 
@@ -143,9 +147,9 @@ if (process.env.NODE_ENV === 'production') {
     stats: {
       // Do not show list of hundreds of files included in a bundle
       chunkModules: false,
-      colors: true
+      colors: true,
     },
-  }
+  };
 }
 
 module.exports = config;

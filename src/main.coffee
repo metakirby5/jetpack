@@ -1,3 +1,7 @@
+# CSS Framework
+require 'skeleton/css/normalize.css'
+require 'skeleton/css/skeleton.css'
+
 require './main.styl'
 
 React = require 'react'
@@ -35,19 +39,30 @@ example = React.createClass
     if query.length
       libs = libs.filter (lib) -> lib.name.toLowerCase().match query
 
-    return div null,
-      input
-        type: 'text'
-        value: @state.query
-        onChange: @handleChange
-        placeholder: 'Type to search'
-      ul null,
-        libs.map (lib) ->
-          li
-            key: lib.name
-            a
-              href: lib.url
-              target: '_blank'
-              lib.name
+    return div
+      style:
+        display: 'flex'
+        flexDirection: 'column'
+        justifyContent: 'center'
+        alignItems: 'center'
+        width: '100%'
+        height: '100%'
+      div
+        style:
+          height: '90%'
+          overflow: 'auto'
+        input
+          type: 'text'
+          value: @state.query
+          onChange: @handleChange
+          placeholder: 'Type to search'
+        ul null,
+          libs.map (lib) ->
+            li
+              key: lib.name
+              a
+                href: lib.url
+                target: '_blank'
+                lib.name
 
-render (React.createElement example), document.getElementById 'root'
+render (React.createElement example), document.getElementById 'react-root'
