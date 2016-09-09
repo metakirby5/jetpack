@@ -1,7 +1,11 @@
+# By convention, code goes in components/component_name/index.coffee.
+
 require './style'
 
 React = require 'react'
 {div, input, ul, li, a} = React.DOM
+
+# Lifted from http://gaearon.github.io/react-hot-loader/
 
 BEST_JS_LIBS = [
   {name: 'Backbone.js', url: 'http://backbonejs.org/'},

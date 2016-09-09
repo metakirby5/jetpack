@@ -3,11 +3,19 @@
 var path = require('path')
   , webpack = require('webpack');
 
-const SRC_PATH = path.join(__dirname, 'src')
-    , BUILD_PATH = path.join(__dirname, 'static')
-    , VENDORS = ['node_modules', 'bower_components'];
+const
+    // Module folders
+      VENDORS = ['node_modules', 'bower_components']
+    , VENDOR_RE = new RegExp(VENDORS.join('|'))
 
-const VENDOR_RE = new RegExp(VENDORS.join('|'));
+    // Input and output folders
+    , SRC_PATH = path.join(__dirname, 'src')
+    , BUILD_PATH = path.join(__dirname, 'static')
+
+    // If you change these, you must change the script tags in index.html
+    , PUBLIC_PATH = '/static/'
+    , SRC_BUNDLE = 'main'
+    , VENDOR_BUNDLE = 'vendor';
 
 // Check if module is vendor, for chunking
 const isVendor = (module) => {
@@ -17,12 +25,12 @@ const isVendor = (module) => {
 
 var config = {
   // What file to start at
-  entry: [path.join(SRC_PATH, 'main.coffee')],
+  entry: [path.join(SRC_PATH, `${SRC_BUNDLE}.coffee`)],
 
   // Where to output
   output: {
     path: BUILD_PATH,
-    publicPath: '/static/',
+    publicPath: PUBLIC_PATH,
     filename: '[name].js',
   },
 
@@ -54,6 +62,7 @@ var config = {
     config: '.stylintrc',
   },
 
+  // Module loading options
   module: {
     // Linters, etc
     preLoaders: [
@@ -69,7 +78,7 @@ var config = {
       },
     ],
 
-    // What to load
+    // Files to load
     loaders: [
       { // Coffeescript (DO NOT MOVE)
         test: /\.coffee$/,
@@ -96,8 +105,9 @@ var config = {
   },
 
   plugins: [
+    // Separate vendor bundle
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
+      name: VENDOR_BUNDLE,
       minChunks: isVendor,
     }),
   ],
@@ -146,6 +156,7 @@ if (process.env.NODE_ENV === 'production') {
     // Allow routing
     historyApiFallback: true,
 
+    // Display options
     stats: {
       // Do not show list of hundreds of files included in a bundle
       chunkModules: false,
