@@ -13,7 +13,7 @@ require './style'
 root = document.getElementById 'react-root'
 start = (app) ->
   render (createElement AppContainer, null, createElement app), root
-start require './App'
+start require './Root'
 
 if module.hot
-  module.hot.accept './App', -> start require './App'
+  module.hot.accept './Root', -> start require './Root'
