@@ -2,8 +2,8 @@
 
 require './style'
 
-React = require 'react'
-{div, input, ul, li, a} = React.DOM
+{createClass, DOM} = require 'react'
+{div, input, ul, li, a} = DOM
 
 # Lifted from http://gaearon.github.io/react-hot-loader/
 
@@ -24,7 +24,7 @@ BEST_JS_LIBS = [
   {name: 'Koa', url: 'http://koajs.com/'}
 ]
 
-module.exports = React.createClass
+module.exports = createClass
   getInitialState: ->
     query: ''
 
@@ -38,7 +38,7 @@ module.exports = React.createClass
     if query.length
       libs = libs.filter (lib) -> lib.name.toLowerCase().match query
 
-    return div
+    div
       className: 'example-container'
       div
         className: 'example-main'

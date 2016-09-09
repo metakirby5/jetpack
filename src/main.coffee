@@ -5,9 +5,15 @@ require 'skeleton/css/normalize.css'
 require 'skeleton/css/skeleton.css'
 require './style'
 
-React = require 'react'
+{AppContainer} = require 'react-hot-loader'
+{createElement} = require 'react'
 {render} = require 'react-dom'
-App = require './app'
 
 # Render the root element.
-render (React.createElement App), document.getElementById 'react-root'
+root = document.getElementById 'react-root'
+start = (app) ->
+  render (createElement AppContainer, null, createElement app), root
+start require './app'
+
+if module.hot
+  module.hot.accept './app', -> start require './app'
