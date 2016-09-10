@@ -14,7 +14,7 @@ const
 
     // Input and output folders
     , SRC_PATH = path.join(__dirname, 'src')
-    , BUILD_PATH = path.join(__dirname, 'static')
+    , BUILD_PATH = path.join(__dirname, 'dist')
 
     // If you change these, you must change the script tags in index.html
     , PUBLIC_PATH = '/static/'
