@@ -143,6 +143,9 @@ switch (ENV) {
       plugins: [new webpack.HotModuleReplacementPlugin()],
 
       devServer: {
+        // Public serving
+        host: '0.0.0.0',
+
         // Adjust entry point
         inline: true,
 
