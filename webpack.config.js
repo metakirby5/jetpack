@@ -17,7 +17,6 @@ const
     , BUILD_PATH = path.join(__dirname, 'dist')
 
     // If you change these, you must change the script tags in index.html
-    , PUBLIC_PATH = '/static/'
     , SRC_BUNDLE = 'main'
     , VENDOR_BUNDLE = 'vendor';
 
@@ -34,7 +33,6 @@ var config = {
   // Where to output
   output: {
     path: BUILD_PATH,
-    publicPath: PUBLIC_PATH,
     filename: '[name].js',
   },
 

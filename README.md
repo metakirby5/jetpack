@@ -17,4 +17,4 @@ You may (and probably should) substitute `npm` with `yarn`.
 
 - To install dependencies: `npm install && bower install`
 - To start `webpack-dev-server`: `npm start`
-- To build deduplicated, minified scripts into `static/`: `npm run build`
+- To build deduplicated, minified scripts into `dist/`: `npm run build`
