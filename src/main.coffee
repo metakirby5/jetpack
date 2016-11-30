@@ -6,13 +6,12 @@ require 'skeleton/css/skeleton.css'
 require './style'
 
 {AppContainer} = require 'react-hot-loader'
-{createElement} = require 'react'
+{createElement: ce} = require 'react'
 {render} = require 'react-dom'
 
 # Render the root element.
 root = document.getElementById 'react-root'
-start = (app) ->
-  render (createElement AppContainer, null, createElement app), root
+start = (app) -> render (ce AppContainer, null, ce app), root
 start require './Root'
 
 if module.hot

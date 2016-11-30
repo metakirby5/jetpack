@@ -1,7 +1,7 @@
 # The base element of your app. Can be a router if you like.
 
-{Component, createElement} = require 'react'
+{Component, createElement: ce} = require 'react'
 Example = require './components/Example'
 
 module.exports = class extends Component
-  render: -> createElement Example
+  render: -> ce Example
