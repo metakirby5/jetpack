@@ -2,7 +2,7 @@
 
 require './style'
 
-{createClass, DOM} = require 'react'
+{Component, DOM} = require 'react'
 {div, input, ul, li, a} = DOM
 
 # Lifted from http://gaearon.github.io/react-hot-loader/
@@ -24,11 +24,13 @@ BEST_JS_LIBS = [
   {name: 'Koa', url: 'http://koajs.com/'}
 ]
 
-module.exports = createClass
-  getInitialState: ->
-    query: ''
+module.exports = class extends Component
+  constructor: (props) ->
+    super props
+    @state =
+      query: ''
 
-  handleChange: (e) ->
+  handleChange: (e) =>
     @setState query: e.target.value
 
   render: ->
