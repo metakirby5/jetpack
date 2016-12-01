@@ -1,7 +1,7 @@
 {
   "name": "jetpack",
   "version": "1.0.0",
-  "description": "Webpack + Coffeescript + Stylus + React boilerplate",
+  "description": "Webpack + Coffeescript + Stylus + React Boilerplate",
   "main": "src/main.js",
   "scripts": {
     "start": "webpack-dev-server",
