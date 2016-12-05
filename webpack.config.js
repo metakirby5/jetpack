@@ -41,7 +41,7 @@ var config = {
   // Where to load modules from
   resolve: {
     modulesDirectories: VENDORS,
-    extensions: ['', '.coffee', '.styl', '.js', '.css']
+    extensions: ['', '.coffee', '.l.styl', '.styl', '.js', '.css']
   },
 
   // Coffeelint options
@@ -81,20 +81,20 @@ var config = {
     loaders: [
       { // Pug
         test: /\.pug$/,
-        loaders: ['pug-html-loader'],
+        loaders: ['pug-html'],
       },
       { // Coffeescript
         test: /\.coffee$/,
         loaders: ['coffee'],
       },
-      { // Stylus
-        test: /\.styl$/,
-        exclude: /\.u\.styl/,
-        loaders: ['style', 'css', 'stylus'],
+      { // Stylus (locally scoped)
+        test: /\.l.styl$/,
+        loaders: ['style', 'css?modules', 'stylus'],
       },
-      { // Reference-counted stylus
-        test: /\.u\.styl/,
-        loaders: ['style/useable', 'css', 'stylus'],
+      { // Stylus (vendor)
+        test: /\.styl$/,
+        exclude: /\.l.styl$/,
+        loaders: ['style', 'css', 'stylus'],
       },
       { // Plain CSS
         test: /\.css$/,

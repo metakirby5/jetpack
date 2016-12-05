@@ -1,6 +1,7 @@
 # By convention, code goes in components/component_name/index.coffee.
+# This way, it can be required by directory name.
 
-require './style'
+{exampleContainer, exampleMain} = require './style'
 
 {Component, DOM} = require 'react'
 {div, input, ul, li, a} = DOM
@@ -41,9 +42,9 @@ module.exports = class extends Component
       libs = libs.filter (lib) -> lib.name.toLowerCase().match query
 
     div
-      className: 'example-container'
+      className: exampleContainer
       div
-        className: 'example-main'
+        className: exampleMain
         input
           type: 'text'
           value: @state.query
