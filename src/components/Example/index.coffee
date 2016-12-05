@@ -1,10 +1,12 @@
 # By convention, code goes in components/component_name/index.coffee.
 # This way, it can be required by directory name.
 
-{exampleContainer, exampleMain} = require './style'
-
 {Component, DOM} = require 'react'
+{connect} = require 'react-redux'
 {div, input, ul, li, a} = DOM
+
+{container, main} = require './style'
+{queryChange} = require '../../actions/query'
 
 # Lifted from http://gaearon.github.io/react-hot-loader/
 
@@ -25,36 +27,39 @@ BEST_JS_LIBS = [
   {name: 'Koa', url: 'http://koajs.com/'}
 ]
 
-module.exports = class extends Component
-  constructor: (props) ->
-    super props
-    @state =
-      query: ''
+# The redux prop gettter
+stateProps = (state) ->
+  query = state.query.trim().toLowerCase()
+  libs = BEST_JS_LIBS
+  if query.length
+    libs = libs.filter (lib) -> lib.name.toLowerCase().match query
 
-  handleChange: (e) =>
-    @setState query: e.target.value
+  query: state.query
+  libs: libs
 
-  render: ->
-    libs = BEST_JS_LIBS
-    query = @state.query.trim().toLowerCase()
+# The redux action dispatcher
+actionProps = (dispatch) ->
+  onQueryChange: (query) -> dispatch queryChange query
 
-    if query.length
-      libs = libs.filter (lib) -> lib.name.toLowerCase().match query
-
+# The functional component
+component = ({query, libs, onQueryChange}) ->
+  div
+    className: container
     div
-      className: exampleContainer
-      div
-        className: exampleMain
-        input
-          type: 'text'
-          value: @state.query
-          onChange: @handleChange
-          placeholder: 'Type to search'
-        ul null,
-          libs.map (lib) ->
-            li
-              key: lib.name
-              a
-                href: lib.url
-                target: '_blank'
-                lib.name
+      className: main
+      input
+        type: 'text'
+        value: query
+        onChange: (e) ->
+          onQueryChange e.target.value
+        placeholder: 'Type to search'
+      ul null,
+        libs.map (lib) ->
+          li
+            key: lib.name
+            a
+              href: lib.url
+              target: '_blank'
+              lib.name
+
+module.exports = (connect stateProps, actionProps) component
