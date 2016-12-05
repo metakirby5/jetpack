@@ -119,8 +119,7 @@
     "level": "ignore"
   },
   "prefer_english_operator": {
-    "level": "error",
-    "doubleNotLevel": "ignore"
+    "level": "ignore"
   },
   "space_operators": {
     "level": "error"
