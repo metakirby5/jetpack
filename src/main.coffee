@@ -22,5 +22,6 @@ start = (app) -> render (
 ), root
 start require './Root'
 
+# Set up hot reloading.
 if module.hot
   module.hot.accept './Root', -> start require './Root'

@@ -27,7 +27,7 @@ BEST_JS_LIBS = [
   {name: 'Koa', url: 'http://koajs.com/'}
 ]
 
-# The redux prop gettter
+# The redux prop getter.
 stateProps = (state) ->
   query = state.query.trim().toLowerCase()
   libs = BEST_JS_LIBS
@@ -37,11 +37,11 @@ stateProps = (state) ->
   query: state.query
   libs: libs
 
-# The redux action dispatcher
+# The redux action dispatcher.
 actionProps = (dispatch) ->
   onQueryChange: (query) -> dispatch queryChange query
 
-# The functional component
+# The functional component.
 component = ({query, libs, onQueryChange}) ->
   div
     className: container
