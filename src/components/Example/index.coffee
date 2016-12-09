@@ -6,7 +6,7 @@
 {div, input, ul, li, a} = DOM
 
 {container, main} = require './style'
-{queryChange} = require '../../actions/query'
+{queryChange} = require 'actions/query'
 
 # Lifted from http://gaearon.github.io/react-hot-loader/
 

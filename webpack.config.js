@@ -40,6 +40,7 @@ var config = {
 
   // Where to load modules from
   resolve: {
+    root: SRC_PATH,
     modulesDirectories: VENDORS,
     extensions: ['', '.coffee', '.l.styl', '.styl', '.js', '.css']
   },

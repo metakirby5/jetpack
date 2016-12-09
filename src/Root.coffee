@@ -2,7 +2,7 @@
 
 {createElement: ce} = require 'react'
 
-Example = require './components/Example'
+Example = require 'components/Example'
 
 module.exports = ->
   ce Example
