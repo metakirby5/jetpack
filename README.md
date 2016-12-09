@@ -8,10 +8,12 @@ Minimal, from-scratch webpack boilerplate with:
   - Nib
   - Stylint
   - React
-  - Redux
+  - Redux + Reselect
   - Skeleton CSS
   - Source maps + React Hot Loader 3.0 beta 3 for development
   - Deduplication + minification for production
+
+Example from http://gaearon.github.io/react-hot-loader/.
 
 # Usage
 
