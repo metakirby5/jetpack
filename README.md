@@ -7,8 +7,8 @@ Minimal, from-scratch webpack boilerplate with:
   - Stylus
   - Nib
   - Stylint
-  - React
-  - Redux + Reselect
+  - React + react-router
+  - Redux + reselect
   - Skeleton CSS
   - Source maps + React Hot Loader 3.0 beta 3 for development
   - Deduplication + minification for production

@@ -1,9 +1,8 @@
 # By convention, code goes in components/component_name/index.coffee.
 # This way, it can be required by directory name.
 
-{Component, DOM} = require 'react'
 {connect} = require 'react-redux'
-{div, input, ul, li, a} = DOM
+{div, input, ul, li, a} = (require 'react').DOM
 
 {container, main} = require './style'
 {$query} = require 'selectors'
@@ -21,10 +20,8 @@ actionProps = (dispatch) ->
 
 # The functional component.
 component = ({query, libs, onQueryChange}) ->
-  div
-    className: container
-    div
-      className: main
+  div className: container,
+    div className: main,
       input
         type: 'text'
         value: query
@@ -33,11 +30,8 @@ component = ({query, libs, onQueryChange}) ->
         placeholder: 'Type to search'
       ul null,
         libs.map (lib) ->
-          li
-            key: lib.name
-            a
-              href: lib.url
-              target: '_blank'
+          li key: lib.name,
+            a href: lib.url, target: '_blank',
               lib.name
 
 module.exports = (connect stateProps, actionProps) component

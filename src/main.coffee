@@ -16,8 +16,7 @@ store = require 'store'
 root = document.getElementById 'react-root'
 start = (app) -> render (
   ce AppContainer, null,
-    ce Provider,
-      store: store
+    ce Provider, store: store,
       ce app
 ), root
 start require 'Root'
