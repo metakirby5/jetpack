@@ -1,4 +1,4 @@
-module.exports = (state = [
+module.exports = -> [
   {name: 'Backbone.js', url: 'http://backbonejs.org/'},
   {name: 'AngularJS', url: 'https://angularjs.org/'},
   {name: 'jQuery', url: 'http://jquery.com/'},
@@ -13,4 +13,4 @@ module.exports = (state = [
   {name: 'Moment', url: 'http://momentjs.com/'},
   {name: 'Express', url: 'http://expressjs.com/'},
   {name: 'Koa', url: 'http://koajs.com/'}
-], action) -> state
+]

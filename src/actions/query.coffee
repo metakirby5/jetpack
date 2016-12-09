@@ -1,6 +1,5 @@
+{createActions} = require 'redux-actions'
+
 {QUERY_CHANGE} = require './types'
 
-module.exports =
-  queryChange: (query) ->
-    type: QUERY_CHANGE
-    query: query
+module.exports = createActions QUERY_CHANGE
