@@ -1,0 +1,4 @@
+--async-only
+--check-leaks
+--inline-diffs
+--throw-deprecation

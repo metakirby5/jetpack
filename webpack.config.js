@@ -15,12 +15,14 @@ const
 
     // Input and output folders
     , SRC_PATH = path.join(__dirname, 'src')
+    , TEST_PATH = path.join(__dirname, 'test')
     , BUILD_PATH = path.join(__dirname, 'dist')
 
-    // Output names
+    // File names
     , INDEX = 'index'
-    , SRC_BUNDLE = 'main'
-    , VENDOR_BUNDLE = 'vendor';
+    , MAIN = 'main'
+    , TEST = 'spec'
+    , VENDOR = 'vendor';
 
 // Check if module is vendor, for chunking
 const isVendor = (module) => {
@@ -30,7 +32,9 @@ const isVendor = (module) => {
 
 var config = {
   // What file to start at
-  entry: [path.join(SRC_PATH, `${SRC_BUNDLE}.coffee`)],
+  entry: {
+    [MAIN]: path.join(SRC_PATH, `${MAIN}.coffee`),
+  },
 
   // Where to output
   output: {
@@ -92,7 +96,7 @@ var config = {
         test: /\.l.styl$/,
         loaders: ['style', 'css?modules', 'stylus'],
       },
-      { // Stylus (vendor)
+      { // Stylus (globally scoped)
         test: /\.styl$/,
         exclude: /\.l.styl$/,
         loaders: ['style', 'css', 'stylus'],
@@ -115,7 +119,7 @@ var config = {
     }),
     // Separate vendor bundle
     new webpack.optimize.CommonsChunkPlugin({
-      name: VENDOR_BUNDLE,
+      name: VENDOR,
       minChunks: isVendor,
     }),
   ],
@@ -125,8 +129,7 @@ var config = {
 switch (ENV) {
   case 'start': // Development
     console.log('Running development server...');
-    config.entry.unshift('react-hot-loader/patch');
-    module.exports = merge(config, {
+    config = merge(config, {
       // Source maps
       devtool: 'cheap-module-eval-source-map',
 
@@ -141,13 +144,22 @@ switch (ENV) {
         ],
       },
 
-      plugins: [new webpack.HotModuleReplacementPlugin()],
+      plugins: [
+        // Devevelopment environment variable
+        new webpack.DefinePlugin({
+          'process.env': {
+            'NODE_ENV': '"development"',
+          },
+        }),
+
+        new webpack.HotModuleReplacementPlugin(),
+      ],
 
       devServer: {
         // Public serving
         host: '0.0.0.0',
 
-        // Adjust entry point
+        // No iframe
         inline: true,
 
         // Show progress
@@ -171,12 +183,12 @@ switch (ENV) {
 
   case 'build': // Production
     console.log('Building production scripts...');
-    module.exports = merge(config, {
+    config = merge(config, {
       plugins: [
         // Production environment variable
         new webpack.DefinePlugin({
           'process.env': {
-            'NODE_ENV': JSON.stringify('production'),
+            'NODE_ENV': '"production"',
           },
         }),
 
@@ -190,4 +202,38 @@ switch (ENV) {
       ],
     });
     break;
+
+  case 'test': // Test
+  case 'test:watch':
+    console.log('Testing...');
+
+    // Set up testing src and path
+    config.entry = {
+      [TEST]: path.join(TEST_PATH, `${TEST}.coffee`),
+    };
+    config.output.path = TEST_PATH;
+
+    // Disable output bundling
+    config.plugins = [];
+
+    config = merge(config, {
+      // Build for node
+      target: 'node',
+      externals: [require('webpack-node-externals')()],
+
+      // Source maps
+      devtool: 'inline-source-map',
+
+      plugins: [
+        // Test environment variable
+        new webpack.DefinePlugin({
+          'process.env': {
+            'NODE_ENV': '"test"',
+          },
+        }),
+      ],
+    });
+    break;
 }
+
+module.exports = config;

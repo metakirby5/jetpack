@@ -1,5 +1,6 @@
 # Build
 dist
+test/spec.js
 
 # Logs
 logs

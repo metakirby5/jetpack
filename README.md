@@ -1,15 +1,16 @@
 # jetpack
 
-Minimal, from-scratch webpack boilerplate with:
-  - Pug
+Minimal, opinionated, from-scratch webpack boilerplate with:
   - Coffeescript
   - Coffeelint
+  - React + react-router
+  - Redux + reselect
+  - Mocha
   - Stylus
   - Nib
   - Stylint
-  - React + react-router
-  - Redux + reselect
   - Skeleton CSS
+  - Pug
   - Source maps + React Hot Loader 3.0 beta 3 for development
   - Deduplication + minification for production
 
@@ -21,7 +22,12 @@ You may (and probably should) substitute `npm` with `yarn`.
 
 - To install dependencies: `npm install && bower install`
 - To start `webpack-dev-server`: `npm start`
+- To test: `npm test` or `npm test:watch`
 - To build deduplicated, minified html/scripts into `dist/`: `npm run build`
+
+The webpack configuration is generated based on `npm_lifecycle_event`, so
+running the scripts from `package.json` directly will not yield the correct
+results.
 
 # Conventions
 
