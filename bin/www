@@ -2,8 +2,7 @@
 // The main server executable. You shouldn't touch this.
 'use strict';
 
-const config = require('../config');
-const port = process.env.PORT || config.ports.server;
+const port = require('../config').ports.server;
 
 require('coffee-script/register');
 require('../server').listen(port, (err, result) => {
