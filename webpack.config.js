@@ -37,6 +37,7 @@ var config = {
   // Where to output
   output: {
     path: BUILD_PATH,
+    publicPath: '/',
     filename: '[name].js',
   },
 
