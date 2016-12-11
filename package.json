@@ -44,6 +44,7 @@
     "minimatch": "^3.0.3",
     "mocha": "^3.2.0",
     "mocha-loader": "^1.0.0",
+    "morgan": "^1.7.0",
     "nib": "^1.1.2",
     "nodemon": "^1.11.0",
     "pug-html-loader": "^1.0.9",

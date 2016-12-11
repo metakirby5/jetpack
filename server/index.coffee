@@ -3,18 +3,23 @@
 path = require 'path'
 express = require 'express'
 cors = require 'cors'
+morgan = require 'morgan'
 bodyParser = require 'body-parser'
 
+PROD = process.env.NODE_ENV == 'production'
 DIST = path.join __dirname, '..', 'dist'
 INDEX = path.join DIST, 'index.html'
 
 app = express()
 
 # Use cors on dev
-if process.env.NODE_ENV != 'production'
+if !PROD
   app.use cors()
 
 app
+  # Logging
+  .use morgan if PROD then 'common' else 'dev'
+
   # POST data
   .use bodyParser.json()
 
