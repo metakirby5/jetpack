@@ -143,7 +143,6 @@ const devServerOpts = {
   stats: {
     // Do not show list of hundreds of files included in a bundle
     chunkModules: false,
-    colors: true,
   },
 };
 

@@ -7,7 +7,7 @@
     "start": "webpack-dev-server",
     "build": "webpack",
     "test": "webpack && mocha",
-    "test:watch": "(webpack --watch & mocha --watch)",
+    "test:watch": "(webpack --watch >/dev/null & mocha --watch --reporter min)",
     "test:browser": "webpack-dev-server"
   },
   "repository": {
