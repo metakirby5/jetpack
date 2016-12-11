@@ -1,6 +1,7 @@
 # jetpack
 
 Minimal, opinionated, from-scratch webpack boilerplate with:
+  - Express
   - Coffeescript
   - Coffeelint
   - React + React Router
@@ -22,8 +23,9 @@ You may (and probably should) substitute `npm` with `yarn`.
 
 - To install dependencies: `npm install && bower install`
 - To start `webpack-dev-server`: `npm start`
-- To test: `npm test` or `npm test:watch`
+- To test: `npm test` or `npm run test:watch`
 - To build deduplicated, minified html/scripts into `dist/`: `npm run build`
+- To run the server: `npm run serve` (be sure to build first!)
 
 The webpack configuration is generated based on `npm_lifecycle_event`, so
 running the scripts from `package.json` directly will not yield the correct

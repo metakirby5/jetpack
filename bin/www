@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+// The main server executable. You shouldn't touch this.
+'use strict';
+
+// Default port
+const PORT = 3000;
+
+require('coffee-script/register');
+require('../server').listen(process.env.PORT || PORT, (err, result) => {
+  console.log(err || `Listening at ${PORT}...`);
+});
