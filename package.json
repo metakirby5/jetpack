@@ -7,7 +7,8 @@
     "start": "webpack-dev-server",
     "build": "webpack",
     "test": "webpack && mocha",
-    "test:watch": "(webpack --watch & mocha --watch)"
+    "test:watch": "(webpack --watch & mocha --watch)",
+    "test:browser": "webpack-dev-server"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,7 @@
     "html-webpack-plugin": "^2.24.1",
     "minimatch": "^3.0.3",
     "mocha": "^3.2.0",
+    "mocha-loader": "^1.0.0",
     "nib": "^1.1.2",
     "pug-html-loader": "^1.0.9",
     "react": "^15.3.1",
@@ -57,7 +59,6 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2",
-    "webpack-merge": "^0.14.1",
-    "webpack-node-externals": "^1.5.4"
+    "webpack-merge": "^0.14.1"
   }
 }

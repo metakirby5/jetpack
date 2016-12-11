@@ -125,6 +125,30 @@ var config = {
   ],
 };
 
+const devServerOpts = {
+  // Public serving
+  host: '0.0.0.0',
+
+  // No iframe
+  inline: true,
+
+  // Show progress
+  progress: true,
+
+  // Hot reloading
+  hot: true,
+
+  // Allow routing
+  historyApiFallback: true,
+
+  // Display options
+  stats: {
+    // Do not show list of hundreds of files included in a bundle
+    chunkModules: false,
+    colors: true,
+  },
+};
+
 // Options based on environment
 switch (ENV) {
   case 'start': // Development
@@ -155,29 +179,7 @@ switch (ENV) {
         new webpack.HotModuleReplacementPlugin(),
       ],
 
-      devServer: {
-        // Public serving
-        host: '0.0.0.0',
-
-        // No iframe
-        inline: true,
-
-        // Show progress
-        progress: true,
-
-        // Hot reloading
-        hot: true,
-
-        // Allow routing
-        historyApiFallback: true,
-
-        // Display options
-        stats: {
-          // Do not show list of hundreds of files included in a bundle
-          chunkModules: false,
-          colors: true,
-        },
-      },
+      devServer: devServerOpts,
     });
     break;
 
@@ -205,22 +207,13 @@ switch (ENV) {
 
   case 'test': // Test
   case 'test:watch':
-    console.log('Testing...');
+  case 'test:browser':
+    process.stdout.write('Testing ');
 
-    // Set up testing src and path
-    config.entry = {
-      [TEST]: path.join(TEST_PATH, `${TEST}.coffee`),
-    };
+    // Set up testing output
     config.output.path = TEST_PATH;
 
-    // Disable output bundling
-    config.plugins = [];
-
     config = merge(config, {
-      // Build for node
-      target: 'node',
-      externals: [require('webpack-node-externals')()],
-
       // Source maps
       devtool: 'inline-source-map',
 
@@ -233,6 +226,35 @@ switch (ENV) {
         }),
       ],
     });
+
+    // Browser testing
+    if (!ENV.match('browser')) {
+      console.log('on command line...');
+      config.entry = [
+        'source-map-support/register',
+        path.join(TEST_PATH, `${TEST}.coffee`),
+      ];
+
+      // Build for node
+      config.target = 'node';
+
+      // Disable output bundling
+      config.plugins = [];
+    } else {
+      console.log('with dev server...');
+      config.entry = path.join(`mocha!${TEST_PATH}`, `${TEST}.coffee`);
+
+      config.plugins = [
+        // Generate test HTML
+        new HtmlWebpackPlugin({
+          template: path.join(TEST_PATH, `${INDEX}.pug`),
+        }),
+
+        new webpack.HotModuleReplacementPlugin(),
+      ]
+
+      config.devServer = devServerOpts;
+    }
     break;
 }
 

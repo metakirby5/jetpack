@@ -1,5 +1,4 @@
-# Add source maps.
-require 'source-map-support/register'
+# The root test file. You shouldn't touch this.
 
 # Programatically require all tests.
 spec = require.context '../src', true, /\.spec\.[^.]*$/
