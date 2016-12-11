@@ -3,9 +3,9 @@
 Minimal, opinionated, from-scratch webpack boilerplate with:
   - Coffeescript
   - Coffeelint
-  - React + react-router
-  - Redux + reselect
-  - Mocha
+  - React + React Router
+  - Redux + Reselect
+  - Mocha + Chai
   - Stylus
   - Nib
   - Stylint

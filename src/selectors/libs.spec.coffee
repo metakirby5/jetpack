@@ -1,4 +1,4 @@
-{deepEqual} = require 'assert'
+(require 'chai').should()
 libs = require './libs'
 
 LIBS = [
@@ -14,22 +14,22 @@ withQuery = (query) -> {query, libs: LIBS}
 describe 'libs', ->
   describe '#filteredByQuery', ->
     it 'should filter to a single result', (done) ->
-      deepEqual (libs.filteredByQuery withQuery 'a'), [
+      (libs.filteredByQuery withQuery 'a').should.deep.equal [
         {name: 'a'},
       ]
       done()
     it 'should be case insensitive', (done) ->
-      deepEqual (libs.filteredByQuery withQuery 'b'), [
+      (libs.filteredByQuery withQuery 'b').should.deep.equal [
         {name: 'b'},
         {name: 'B'},
       ]
-      deepEqual (libs.filteredByQuery withQuery 'B'), [
+      (libs.filteredByQuery withQuery 'B').should.deep.equal [
         {name: 'b'},
         {name: 'B'},
       ]
       done()
     it 'should do prefix matching', (done) ->
-      deepEqual (libs.filteredByQuery withQuery 'c'), [
+      (libs.filteredByQuery withQuery 'c').should.deep.equal [
         {name: 'c'},
         {name: 'cool'},
       ]
