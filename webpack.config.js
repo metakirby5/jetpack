@@ -32,9 +32,7 @@ const isVendor = (module) => {
 
 var config = {
   // What file to start at
-  entry: {
-    [MAIN]: path.join(SRC_PATH, `${MAIN}.coffee`),
-  },
+  entry: path.join(SRC_PATH, `${MAIN}.coffee`),
 
   // Where to output
   output: {
