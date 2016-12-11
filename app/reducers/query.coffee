@@ -1,4 +1,4 @@
-# By convention, the filename is the subtree of state this reducer manages.
+# Reducer for query.
 
 {createReducer} = require 'redux-act'
 

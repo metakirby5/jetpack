@@ -1,5 +1,4 @@
-# By convention, code goes in components/component_name/index.coffee.
-# This way, it can be required by directory name.
+# A searchable listing of libs.
 
 {connect} = require 'react-redux'
 {div, input, ul, li, a} = (require 'react').DOM

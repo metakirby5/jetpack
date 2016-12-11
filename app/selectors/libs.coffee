@@ -1,3 +1,5 @@
+# Selectors for libs.
+
 {createSelector: cs} = require 'reselect'
 
 {$query, $libs} = require 'selectors'

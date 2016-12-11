@@ -1,4 +1,4 @@
-# The base element of your app. Can be a router if you like.
+# The base element. In this case, it is a router.
 
 {createElement: ce} = require 'react'
 {Router, Route, browserHistory} = require 'react-router'

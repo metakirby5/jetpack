@@ -1,3 +1,5 @@
+# Reducer for libs.
+
 {createReducer} = require 'redux-act'
 
 {requestLibs, receiveLibs, errorLibs} = require 'actions'

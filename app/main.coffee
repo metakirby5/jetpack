@@ -1,4 +1,4 @@
-# The entry point. You shouldn't touch this.
+# The main entry point. You shouldn't touch this.
 require 'react-hot-loader/patch'
 
 # Load vendor and global CSS.

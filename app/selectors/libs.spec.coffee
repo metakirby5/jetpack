@@ -1,3 +1,5 @@
+# A test suite for lib selectors.
+
 (require 'chai').should()
 libs = require './libs'
 

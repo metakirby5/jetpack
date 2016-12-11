@@ -1,4 +1,4 @@
-# Configures the store. You shouldn't touch this.
+# Configures the store.
 
 {createStore, applyMiddleware} = require 'redux'
 thunk = require 'redux-thunk'
