@@ -14,14 +14,14 @@ const
     , VENDOR_RE = new RegExp(VENDORS.join('|'))
 
     // Input and output folders
-    , SRC_PATH = path.join(__dirname, 'src')
+    , SRC_PATH = path.join(__dirname, 'app')
     , TEST_PATH = path.join(__dirname, 'test')
     , BUILD_PATH = path.join(__dirname, 'dist')
 
     // File names
     , INDEX = 'index'
     , MAIN = 'main'
-    , TEST = 'spec'
+    , TEST = 'app'
     , VENDOR = 'vendor';
 
 // Check if module is vendor, for chunking

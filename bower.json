@@ -1,7 +1,7 @@
 {
   "name": "jetpack",
   "description": "Webpack + Coffeescript + Stylus + React Boilerplate",
-  "main": "src/main.js",
+  "main": "bin/www",
   "authors": [
     "Ethan Chan"
   ],

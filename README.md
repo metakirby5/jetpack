@@ -31,9 +31,9 @@ The webpack configuration is generated based on `npm_lifecycle_event`, so
 running the scripts from `package.json` directly will not yield the correct
 results.
 
-# Conventions
+# App conventions
 
-All files are in `src/` unless otherwise noted.
+All files are in `app/` unless otherwise noted.
 
 - All React components are pure functional components with Redux.
 - The entry point is `main.coffee`, which also sets up hot reloading.
@@ -49,6 +49,10 @@ All files are in `src/` unless otherwise noted.
 - Action types can be found at `actions/types.coffee`.
 - Each action category gets a file  in `actions/`, and exports an object keyed
   by action creator name.
-- Tests are considered any file within the `src` tree ending with `.spec.*`,
+- Tests are considered any file within the `app` tree ending with `.spec.*`,
   where `*` is any extension (e.g. `coffee`). These are all automatically
   picked up by `npm test`.
+
+# Server conventions
+
+TBD

@@ -2,7 +2,7 @@
   "name": "jetpack",
   "version": "1.0.0",
   "description": "Webpack + Coffeescript + Stylus + React Boilerplate",
-  "main": "src/main.js",
+  "main": "bin/www",
   "scripts": {
     "serve": "bin/www",
     "serve:watch": "nodemon bin/www",
