@@ -5,12 +5,13 @@
 {div, input, ul, li, a} = (require 'react').DOM
 
 {container, main} = require './style'
-{$query} = require 'selectors'
+{$query, $libs} = require 'selectors'
 {filteredByQuery} = require 'selectors/libs'
-{queryChange} = require 'actions/query'
+{queryChange} = require 'actions'
 
 # The redux prop getter.
 stateProps = (state) ->
+  status: $libs(state).status
   query: $query state
   libs: filteredByQuery state
 
@@ -19,7 +20,7 @@ actionProps = (dispatch) ->
   onQueryChange: (query) -> dispatch queryChange query
 
 # The functional component.
-component = ({query, libs, onQueryChange}) ->
+component = ({status, query, libs, onQueryChange}) ->
   div className: container,
     div className: main,
       input
@@ -29,9 +30,12 @@ component = ({query, libs, onQueryChange}) ->
           onQueryChange e.target.value
         placeholder: 'Type to search'
       ul null,
-        libs.map (lib) ->
-          li key: lib.name,
-            a href: lib.url, target: '_blank',
-              lib.name
+        if status
+          status
+        else
+          libs.map (lib) ->
+            li key: lib.name,
+              a href: lib.url, target: '_blank',
+                lib.name
 
 module.exports = (connect stateProps, actionProps) component

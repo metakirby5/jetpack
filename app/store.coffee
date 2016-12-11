@@ -1,10 +1,16 @@
 # Configures the store. You shouldn't touch this.
 
-{createStore} = require 'redux'
+{createStore, applyMiddleware} = require 'redux'
+thunk = require 'redux-thunk'
 
 reducers = require 'reducers'
+{fetchLibs} = require 'actions/async'
 
-store = createStore reducers
+store = createStore reducers,
+  applyMiddleware thunk.default
+
+# Dispatch an initial fetch.
+store.dispatch fetchLibs()
 
 # Set up hot reloading.
 if module.hot

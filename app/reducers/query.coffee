@@ -1,9 +1,9 @@
 # By convention, the filename is the subtree of state this reducer manages.
 
-{handleActions} = require 'redux-actions'
+{createReducer} = require 'redux-act'
 
-{QUERY_CHANGE} = require 'actions/types'
+{queryChange} = require 'actions'
 
-module.exports = handleActions
-  "#{QUERY_CHANGE}": (state, {payload}) -> payload
+module.exports = createReducer (act) ->
+  act queryChange, (_, query) -> query
 , ''

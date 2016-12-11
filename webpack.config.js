@@ -3,7 +3,8 @@
 const path = require('path')
     , webpack = require('webpack')
     , merge = require('webpack-merge')
-    , HtmlWebpackPlugin = require('html-webpack-plugin');
+    , HtmlWebpackPlugin = require('html-webpack-plugin')
+    , projectConfig = require('./config');
 
 const
     // Environment
@@ -116,6 +117,7 @@ var config = {
     new HtmlWebpackPlugin({
       template: path.join(SRC_PATH, `${INDEX}.pug`),
     }),
+
     // Separate vendor bundle
     new webpack.optimize.CommonsChunkPlugin({
       name: VENDOR,
@@ -127,6 +129,9 @@ var config = {
 const devServerOpts = {
   // Public serving
   host: '0.0.0.0',
+
+  // Use defined port
+  port: projectConfig.ports.app,
 
   // No iframe
   inline: true,
@@ -169,6 +174,7 @@ switch (ENV) {
       plugins: [
         // Devevelopment environment variable
         new webpack.DefinePlugin({
+          'API_URL': `"http://localhost:${projectConfig.ports.server}/api"`,
           'process.env': {
             'NODE_ENV': '"development"',
           },
@@ -187,6 +193,7 @@ switch (ENV) {
       plugins: [
         // Production environment variable
         new webpack.DefinePlugin({
+          'API_URL': '"/api"',
           'process.env': {
             'NODE_ENV': '"production"',
           },
@@ -218,6 +225,7 @@ switch (ENV) {
       plugins: [
         // Test environment variable
         new webpack.DefinePlugin({
+          'API_URL': null,
           'process.env': {
             'NODE_ENV': '"test"',
           },

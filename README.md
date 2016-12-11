@@ -4,8 +4,8 @@ Minimal, opinionated, from-scratch webpack boilerplate with:
   - Express
   - Coffeescript
   - Coffeelint
-  - React + React Router
-  - Redux + Reselect
+  - React + react-router
+  - Redux + redux-act + reselect
   - Mocha + Chai
   - Stylus
   - Nib
@@ -46,9 +46,9 @@ All files are in `app/` unless otherwise noted.
   `reducers/index.coffee`.
 - Each reducer gets a file in `reducers/`, and is automatically imported.
   It manages the state sub-tree matching its filename, sans extension.
-- Action types can be found at `actions/types.coffee`.
-- Each action category gets a file  in `actions/`, and exports an object keyed
-  by action creator name.
+- Actions are created and handled using redux-act.
+  - Actions can be found at `actions/index.coffee`.
+  - Async actions can be found at `actions/async.coffee.`
 - Tests are considered any file within the `app` tree ending with `.spec.*`,
   where `*` is any extension (e.g. `coffee`). These are all automatically
   picked up by `npm test`.

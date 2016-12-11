@@ -9,7 +9,7 @@ LIBS = [
   {name: 'cool'}
 ]
 
-withQuery = (query) -> {query, libs: LIBS}
+withQuery = (query) -> {query, libs: {items: LIBS}}
 
 describe 'libs', ->
   describe '#filteredByQuery', ->

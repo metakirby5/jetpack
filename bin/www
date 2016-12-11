@@ -2,10 +2,10 @@
 // The main server executable. You shouldn't touch this.
 'use strict';
 
-// Default port
-const PORT = 3000;
+const config = require('../config');
+const port = process.env.PORT || config.ports.server;
 
 require('coffee-script/register');
-require('../server').listen(process.env.PORT || PORT, (err, result) => {
-  console.log(err || `Listening at ${PORT}...`);
+require('../server').listen(port, (err, result) => {
+  console.log(err || `Listening at ${port}...`);
 });

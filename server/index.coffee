@@ -2,12 +2,17 @@
 
 path = require 'path'
 express = require 'express'
+cors = require 'cors'
 bodyParser = require 'body-parser'
 
 DIST = path.join __dirname, '..', 'dist'
 INDEX = path.join DIST, 'index.html'
 
 app = express()
+
+# Use cors on dev
+if process.env.NODE_ENV != 'production'
+  app.use cors()
 
 app
   # POST data
