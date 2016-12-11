@@ -1,0 +1,4 @@
+{
+  "ext": "coffee",
+  "watch": ["server"]
+}
