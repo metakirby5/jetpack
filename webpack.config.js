@@ -199,6 +199,9 @@ switch (ENV) {
           },
         }),
 
+        // Optimize chunking
+        new webpack.optimize.OccurrenceOrderPlugin(),
+
         // Deduplicate
         new webpack.optimize.DedupePlugin(),
 
