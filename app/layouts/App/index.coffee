@@ -1,15 +1,14 @@
 # Main app frame.
 
-{createElement: ce, DOM} = require 'react'
-{main, nav, aside, ul, li, a} = DOM
+{createElement: ce, DOM: d} = require 'react'
 {Link} = require 'react-router'
 
 s = require './style'
 
 module.exports = ({children}) ->
-  main className: s.content,
-    nav className: s.navbar,
-      aside className: s.brand, 'jetpack'
-      ul className: s.navMenu,
-        li null, ce Link, to: '/404', '404 link'
+  d.main className: s.content,
+    d.nav className: s.navbar,
+      d.aside className: s.brand, 'jetpack'
+      d.ul className: s.navMenu,
+        d.li null, ce Link, to: '/404', '404 link'
     children

@@ -1,11 +1,11 @@
 # 404 page.
 
-{main, header, summary} = (require 'react').DOM
+{DOM: d} = require 'react'
 s = require './style'
 
 module.exports = ->
-  main className: s.errorMain,
-    header className: s.errorCode,
+  d.main className: s.errorMain,
+    d.header className: s.errorCode,
       '404'
-    summary className: s.errorMessage,
+    d.summary className: s.errorMessage,
       'not found'

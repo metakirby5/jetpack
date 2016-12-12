@@ -1,7 +1,7 @@
 # A searchable listing of libs.
 
 {connect} = require 'react-redux'
-{div, input, ul, li, a} = (require 'react').DOM
+{DOM: d} = require 'react'
 
 {$query, $libs} = require 'selectors'
 {filteredByQuery} = require 'selectors/libs'
@@ -19,20 +19,20 @@ actionProps = (dispatch) ->
 
 # The functional component.
 component = ({status, query, libs, onQueryChange}) ->
-  div null,
-    input
+  d.div null,
+    d.input
       type: 'text'
       value: query
       onChange: (e) ->
         onQueryChange e.target.value
       placeholder: 'Type to search'
-    ul null,
+    d.ul null,
       if status
         status
       else
         libs.map (lib) ->
-          li key: lib.name,
-            a href: lib.url, target: '_blank',
+          d.li key: lib.name,
+            d.a href: lib.url, target: '_blank',
               lib.name
 
 module.exports = (connect stateProps, actionProps) component
