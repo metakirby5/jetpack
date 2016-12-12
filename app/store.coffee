@@ -1,13 +1,15 @@
 # Configures the store.
 
 {createStore, applyMiddleware} = require 'redux'
-thunk = require 'redux-thunk'
+{browserHistory} = require 'react-router'
+{routerMiddleware} = require 'react-router-redux'
+{default: thunk} = require 'redux-thunk'
 
 reducers = require 'reducers'
 {fetchLibs} = require 'actions/async'
 
 store = createStore reducers,
-  applyMiddleware thunk.default
+  applyMiddleware thunk, routerMiddleware browserHistory
 
 # Dispatch an initial fetch.
 store.dispatch fetchLibs()
