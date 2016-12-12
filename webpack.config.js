@@ -8,16 +8,17 @@ const path = require('path')
 
 const
     // Environment
-      ENV = process.env.npm_lifecycle_event
+      ENV = projectConfig.env
+    , API = projectConfig.api
 
     // Module folders
     , VENDORS = ['node_modules', 'bower_components']
     , VENDOR_RE = new RegExp(VENDORS.join('|'))
 
     // Input and output folders
-    , SRC_PATH = path.join(__dirname, 'app')
-    , TEST_PATH = path.join(__dirname, 'test')
-    , BUILD_PATH = path.join(__dirname, 'dist')
+    , SRC_PATH = projectConfig.app
+    , TEST_PATH = projectConfig.test
+    , BUILD_PATH = projectConfig.dist
 
     // File names
     , INDEX = 'index'
@@ -33,7 +34,7 @@ const isVendor = (module) => {
 
 var config = {
   // What file to start at
-  entry: path.join(SRC_PATH, `${MAIN}.coffee`),
+  entry: [path.join(SRC_PATH, `${MAIN}.coffee`)],
 
   // Where to output
   output: {
@@ -126,7 +127,7 @@ var config = {
   ],
 };
 
-const devServerOpts = {
+var devServerOpts = {
   // Public serving
   host: '0.0.0.0',
 
@@ -149,13 +150,27 @@ const devServerOpts = {
   stats: {
     // Do not show list of hundreds of files included in a bundle
     chunkModules: false,
+
+    // Pretty colors
+    colors: true,
   },
 };
 
 // Options based on environment
 switch (ENV) {
-  case 'start': // Development
+  case 'dev': // Development
     console.log('Running development server...');
+
+    // Proxy API requests
+    devServerOpts.proxy = {
+      [API]: `localhost:${projectConfig.ports.server}${API}`,
+    };
+
+    // Add hot module entry point
+    config.entry.unshift(
+      `webpack-dev-server/client?http://localhost:${projectConfig.ports.app}`,
+      'webpack/hot/dev-server');
+
     config = merge(config, {
       // Source maps
       devtool: 'cheap-module-eval-source-map',
@@ -174,7 +189,6 @@ switch (ENV) {
       plugins: [
         // Devevelopment environment variable
         new webpack.DefinePlugin({
-          'API_URL': `"http://localhost:${projectConfig.ports.server}/api"`,
           'process.env': {
             'NODE_ENV': '"development"',
           },
@@ -193,7 +207,6 @@ switch (ENV) {
       plugins: [
         // Production environment variable
         new webpack.DefinePlugin({
-          'API_URL': '"/api"',
           'process.env': {
             'NODE_ENV': '"production"',
           },
@@ -228,7 +241,6 @@ switch (ENV) {
       plugins: [
         // Test environment variable
         new webpack.DefinePlugin({
-          'API_URL': null,
           'process.env': {
             'NODE_ENV': '"test"',
           },
@@ -251,7 +263,7 @@ switch (ENV) {
       config.plugins = [];
     } else {
       console.log('with dev server...');
-      config.entry = path.join(`mocha!${TEST_PATH}`, `${TEST}.coffee`);
+      config.entry = [path.join(`mocha!${TEST_PATH}`, `${TEST}.coffee`)];
 
       config.plugins = [
         // Generate test HTML

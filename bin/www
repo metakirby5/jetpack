@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 // The main server executable. You shouldn't touch this.
-'use strict';
-
-const port = require('../config').ports.server;
-
 require('coffee-script/register');
-require('../server').listen(port, (err, result) => {
-  console.log(err || `Listening at ${port}...`);
+
+const config = require('../config');
+const server = require('../server');
+
+server.listen(config.ports.server, () => {
+  console.log(`Server listening at ${config.ports.server}...`);
 });

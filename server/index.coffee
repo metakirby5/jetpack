@@ -2,35 +2,30 @@
 
 path = require 'path'
 express = require 'express'
-cors = require 'cors'
 morgan = require 'morgan'
-bodyParser = require 'body-parser'
+proxy = require 'express-http-proxy'
 
-PROD = process.env.NODE_ENV == 'production'
-DIST = path.join __dirname, '..', 'dist'
-INDEX = path.join DIST, 'index.html'
+config = require '../config'
 
-app = express()
+INDEX = path.join config.dist, 'index.html'
 
-# Use cors on dev
-if !PROD
-  app.use cors()
+server = express()
 
-app
+server
   # Logging
-  .use morgan if PROD then 'common' else 'dev'
-
-  # POST data
-  .use bodyParser.json()
+  .use morgan if config.isProd then 'common' else 'dev'
 
   # API
   .use '/api', require './api'
 
-  # Statically serve the app
-  .use '/', express.static DIST
+# Statically serve on prod
+if config.isProd
+  server
+    .use '/', express.static config.dist
+    .get '*', (req, res) ->
+      res.sendFile INDEX
+# Proxy to webpack server on dev
+else
+  server.use '/', proxy "localhost:#{config.ports.app}"
 
-  # Fall back on app index
-  .get '*', (req, res) ->
-    res.sendFile INDEX
-
-module.exports = app
+module.exports = server

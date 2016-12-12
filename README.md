@@ -22,10 +22,12 @@ Example from http://gaearon.github.io/react-hot-loader/.
 You may (and probably should) substitute `npm` with `yarn`.
 
 - To install dependencies: `npm install && bower install`
-- To start `webpack-dev-server`: `npm start`
-- To test: `npm test` or `npm run test:watch`
+- To start serving for production: `npm start` (be sure to build first!)
+- To run the dev servers: `npm run dev`
+  - The main server is at `localhost:3000`, which proxies everything but
+    `/api` to `webpack-dev-server` at `localhost:8080`
+- To test: `npm test`, `npm run test:watch`, or `npm run test:browser`
 - To build deduplicated, minified html/scripts into `dist/`: `npm run build`
-- To run the server: `npm run serve` (be sure to build first!)
 
 The webpack configuration is generated based on `npm_lifecycle_event`, so
 running the scripts from `package.json` directly will not yield the correct
@@ -55,4 +57,4 @@ All files are in `app/` unless otherwise noted.
 
 # Server conventions
 
-TBD
+Probably will be GraphQL, TBD.

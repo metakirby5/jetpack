@@ -4,13 +4,12 @@
   "description": "Webpack + Coffeescript + Stylus + React Boilerplate",
   "main": "bin/www",
   "scripts": {
-    "serve": "bin/www",
-    "serve:watch": "nodemon",
-    "start": "webpack-dev-server",
+    "start": "bin/www # localhost:3000",
+    "dev": "(webpack-dev-server & nodemon) # localhost:3000",
     "build": "webpack",
     "test": "webpack && mocha",
     "test:watch": "(webpack --watch >/dev/null & mocha --watch --reporter min)",
-    "test:browser": "webpack-dev-server"
+    "test:browser": "webpack-dev-server # localhost:8080"
   },
   "repository": {
     "type": "git",
@@ -30,15 +29,14 @@
   },
   "homepage": "https://github.com/metakirby5/jetpack#readme",
   "dependencies": {
-    "body-parser": "^1.15.2",
     "chai": "^3.5.0",
     "coffee-lint-loader": "0.0.1",
     "coffee-loader": "^0.7.2",
     "coffee-script": "^1.10.0",
     "coffeelint": "^1.15.7",
-    "cors": "^2.8.1",
     "css-loader": "^0.25.0",
     "express": "^4.14.0",
+    "express-http-proxy": "^0.10.1",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.24.1",
     "minimatch": "^3.0.3",

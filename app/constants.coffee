@@ -1,3 +1,5 @@
 # Constants for the app.
 
-module.exports = {API_URL}
+config = require '../config'
+
+module.exports = {API: config.api}
