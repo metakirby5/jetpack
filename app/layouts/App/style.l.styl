@@ -1,0 +1,48 @@
+// Style for main app structure.
+
+@import '../../styles/colors'
+
+$nav-height = 5rem
+$nav-spacing = 2rem
+
+.navbar
+  position fixed
+  top 0
+  left 0
+  right 0
+  height $nav-height
+
+  display flex
+  align-items center
+  background white
+  border-bottom 1px solid black
+
+.brand
+  height 100%
+  display flex
+  align-items center
+  padding 0 ($nav-spacing / 2)
+  font-size 2rem
+
+.navMenu
+  height 100%
+  display flex
+  align-items center
+  margin $nav-spacing
+  list-style none
+  margin 0
+  > li
+    height 100%
+    display flex
+    align-items center
+    margin 0
+    padding 0 ($nav-spacing / 2)
+    &:hover
+      background $light-gray
+    > a
+      height 100%
+      display flex
+      align-items center
+
+.content
+  padding-top $nav-height

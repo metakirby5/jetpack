@@ -4,7 +4,7 @@ require 'react-hot-loader/patch'
 # Load vendor and global CSS.
 require 'skeleton/css/normalize.css'
 require 'skeleton/css/skeleton.css'
-require 'style'
+require 'styles'
 
 {AppContainer} = require 'react-hot-loader'
 {createElement: ce} = require 'react'

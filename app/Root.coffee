@@ -5,12 +5,14 @@
 {syncHistoryWithStore} = require 'react-router-redux'
 
 store = require 'store'
-LibList = require 'components/LibList'
-NotFound = require 'components/NotFound'
+App = require 'layouts/App'
+LibList = require 'layouts/LibList'
+NotFound = require 'layouts/NotFound'
 
 history = syncHistoryWithStore browserHistory, store
 
 module.exports = ->
   ce Router, history: history,
-    ce Route, path: '/', component: LibList
-    ce Route, path: '*', component: NotFound
+    ce Route, component: App,
+      ce Route, path: '/', component: LibList
+      ce Route, path: '*', component: NotFound
