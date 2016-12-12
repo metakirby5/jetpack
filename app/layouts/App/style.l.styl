@@ -1,6 +1,7 @@
 // Style for main app structure.
 
 @import '../../styles/colors'
+@import '../../styles/mixins'
 
 $nav-height = 5rem
 $nav-spacing = 2rem
@@ -18,31 +19,28 @@ $nav-spacing = 2rem
   border-bottom 1px solid black
 
 .brand
-  height 100%
-  display flex
-  align-items center
-  padding 0 ($nav-spacing / 2)
+  vcenter()
   font-size 2rem
+  > a
+    vcenter()
+    padding 0 ($nav-spacing / 2)
+    &:hover
+      color white
+      background $brand
 
 .navMenu
-  height 100%
-  display flex
-  align-items center
+  vcenter()
   margin $nav-spacing
   list-style none
   margin 0
   > li
-    height 100%
-    display flex
-    align-items center
+    vcenter()
     margin 0
-    padding 0 ($nav-spacing / 2)
-    &:hover
-      background $light-gray
     > a
-      height 100%
-      display flex
-      align-items center
+      vcenter()
+      padding 0 ($nav-spacing / 2)
+      &:hover
+        background $light-gray
 
 .content
   padding-top $nav-height
