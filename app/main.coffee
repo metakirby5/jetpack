@@ -9,19 +9,12 @@ require 'styles'
 {AppContainer} = require 'react-hot-loader'
 {createElement: ce} = require 'react'
 {render} = require 'react-dom'
-{Provider} = require 'react-redux'
-
-store = require 'store'
 
 # Render the root element.
 root = document.getElementById 'react-root'
-start = (app) -> render (
-  ce AppContainer, null,
-    ce Provider, store: store,
-      ce app
-), root
-start require 'Root'
+start = -> render (ce AppContainer, null, ce require 'Root'), root
+start()
 
 # Set up hot reloading.
 if module.hot
-  module.hot.accept 'Root', -> start require 'Root'
+  module.hot.accept 'Root', start
