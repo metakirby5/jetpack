@@ -127,7 +127,7 @@ var config = {
   ],
 };
 
-var devServerOpts = {
+const devServerOpts = {
   // Public serving
   host: '0.0.0.0',
 
@@ -160,16 +160,6 @@ var devServerOpts = {
 switch (ENV) {
   case 'dev': // Development
     console.log('Running development server...');
-
-    // Proxy API requests
-    devServerOpts.proxy = {
-      [API]: `localhost:${projectConfig.ports.server}${API}`,
-    };
-
-    // Add hot module entry point
-    config.entry.unshift(
-      `webpack-dev-server/client?http://localhost:${projectConfig.ports.app}`,
-      'webpack/hot/dev-server');
 
     config = merge(config, {
       // Source maps
