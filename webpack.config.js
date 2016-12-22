@@ -50,11 +50,6 @@ var config = {
     extensions: ['', '.coffee', '.l.styl', '.styl', '.js', '.css']
   },
 
-  // Coffeelint options
-  coffeelint: {
-    configFile: 'coffeelint.json',
-  },
-
   // Stylus options
   stylus: {
     use: [require('nib')()],
@@ -62,9 +57,14 @@ var config = {
     preferPathResolver: 'webpack',
   },
 
+  // Coffeelint options
+  coffeelint: {
+    configFile: 'coffeelint.json',
+  },
+
   // Stylint options
   stylint: {
-    config: '.stylintrc',
+    config: 'stylint.json',
   },
 
   // Module loading options
