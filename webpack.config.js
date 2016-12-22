@@ -94,12 +94,12 @@ var config = {
         loaders: ['coffee'],
       },
       { // Stylus (locally scoped)
-        test: /\.l.styl$/,
+        test: /\.l\.styl$/,
         loaders: ['style', 'css?modules', 'stylus'],
       },
       { // Stylus (globally scoped)
         test: /\.styl$/,
-        exclude: /\.l.styl$/,
+        exclude: /\.l\.styl$/,
         loaders: ['style', 'css', 'stylus'],
       },
       { // Plain CSS
@@ -160,7 +160,6 @@ const devServerOpts = {
 switch (ENV) {
   case 'dev': // Development
     console.log('Running development server...');
-
     config = merge(config, {
       // Source maps
       devtool: 'cheap-module-eval-source-map',
