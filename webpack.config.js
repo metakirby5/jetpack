@@ -238,7 +238,7 @@ switch (ENV) {
       ],
     });
 
-    // Browser testing
+    // View tests on CLI
     if (!ENV.match('browser')) {
       console.log('on command line...');
       config.entry = [
@@ -251,6 +251,7 @@ switch (ENV) {
 
       // Disable output bundling
       config.plugins = [];
+    // View tests in browser
     } else {
       console.log('with dev server...');
       config.entry = [path.join(`mocha!${TEST_PATH}`, `${TEST}.coffee`)];
