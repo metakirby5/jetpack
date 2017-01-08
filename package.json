@@ -11,23 +11,10 @@
     "test:watch": "(webpack --watch >/dev/null & mocha --watch --reporter min)",
     "test:browser": "webpack-dev-server # localhost:8080"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/metakirby5/jetpack.git"
-  },
-  "keywords": [
-    "boilerplate",
-    "webpack",
-    "coffeescript",
-    "stylus",
-    "react"
-  ],
-  "author": "Ethan Chan",
+  "repository": "https://github.com/metakirby5/jetpack.git",
+  "author": "Ethan Chan <metakirby5@gmail.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/metakirby5/jetpack/issues"
-  },
-  "homepage": "https://github.com/metakirby5/jetpack#readme",
+  "homepage": "https://github.com/metakirby5/jetpack",
   "dependencies": {
     "chai": "^3.5.0",
     "coffee-lint-loader": "0.0.1",
