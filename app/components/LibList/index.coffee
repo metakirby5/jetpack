@@ -23,8 +23,7 @@ component = ({status, query, libs, onQueryChange}) ->
     d.input
       type: 'text'
       value: query
-      onChange: (e) ->
-        onQueryChange e.target.value
+      onChange: (e) -> onQueryChange e.target.value
       placeholder: 'Type to search'
     d.ul null,
       if status
