@@ -9,7 +9,7 @@ module.exports = createReducer (act) ->
   act requestLibs, assign ->
     status: 'loading...'
   act receiveLibs, assign (libs) ->
-    status: ''
+    status: null
     items: libs
   act errorLibs, assign (libs) ->
     status: 'unable to fetch!'

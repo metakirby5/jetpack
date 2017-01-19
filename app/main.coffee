@@ -12,7 +12,7 @@ require 'styles'
 
 # Render the root element.
 root = document.getElementById 'react-root'
-start = -> render (ce AppContainer, null, ce require 'Root'), root
+start = -> render (ce AppContainer, 0, ce require 'Root'), root
 start()
 
 # Set up hot reloading.

@@ -11,5 +11,6 @@ module.exports = ({children}) ->
       d.aside className: s.brand,
         ce Link, to: '/', 'jetpack'
       d.ul className: s.navMenu,
-        d.li null, ce Link, to: '/404', '404 link'
+        d.li 0,
+          ce Link, to: '/404', '404 link'
     children
