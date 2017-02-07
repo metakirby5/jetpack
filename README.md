@@ -2,14 +2,11 @@
 
 Minimal, opinionated, from-scratch webpack boilerplate with:
   - Express
-  - Coffeescript
-  - Coffeelint
+  - Coffeescript + Coffeelint
   - React + react-router
   - Redux + redux-act + reselect
   - Mocha + Chai
-  - Stylus
-  - Nib
-  - Stylint
+  - Stylus + Nib + Stylint
   - Skeleton CSS
   - Pug
   - Source maps + React Hot Loader 3.0 beta 3 for development
