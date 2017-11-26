@@ -2,5 +2,5 @@
 
 module.exports =
   # Reducer boilerplate for Object.assign.
-  assign: (mapper = (payload) -> payload) ->
-    (state, payload) -> Object.assign {}, state, mapper payload
+  assign: (transform = (state, payload) -> payload) ->
+    (state, payload) -> Object.assign {}, state, transform state, payload

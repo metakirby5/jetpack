@@ -8,10 +8,10 @@
 module.exports = createReducer (act) ->
   act requestLibs, assign ->
     status: 'loading...'
-  act receiveLibs, assign (libs) ->
+  act receiveLibs, assign (state, payload) ->
     status: null
-    items: libs
-  act errorLibs, assign (libs) ->
+    items: payload
+  act errorLibs, assign (state, payload) ->
     status: 'unable to fetch!'
 ,
   status: 'loading...'

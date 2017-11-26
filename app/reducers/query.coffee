@@ -5,5 +5,5 @@
 {queryChange} = require 'actions'
 
 module.exports = createReducer (act) ->
-  act queryChange, (_, query) -> query
+  act queryChange, (state, payload) -> payload
 , ''
