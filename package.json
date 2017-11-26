@@ -7,7 +7,7 @@
     "start": "bin/www # localhost:3000",
     "dev": "(webpack-dev-server & nodemon) # localhost:3000",
     "build": "webpack",
-    "test": "webpack && mocha",
+    "test": "webpack && mocha test/main.js \"server/**/*.spec.coffee\"",
     "test:watch": "(webpack --watch >/dev/null & mocha --watch --reporter min)",
     "test:browser": "webpack-dev-server # localhost:8080"
   },

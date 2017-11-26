@@ -67,5 +67,4 @@ All files are in `app/` unless otherwise noted.
 
 # TODO
 
-- Server tests.
 - Re-enable `coffeescript_error` lint.

@@ -1,6 +1,6 @@
 # A test suite for lib selectors.
 
-(require 'chai').should()
+require('chai').should()
 libs = require './libs'
 
 LIBS = [
@@ -13,7 +13,7 @@ LIBS = [
 
 withQuery = (query) -> {query, data: {libs: LIBS}}
 
-describe 'libs', ->
+describe 'app', -> describe 'libs', ->
   describe '#filteredByQuery', ->
     it 'should filter to a single result', (done) ->
       (libs.filteredByQuery withQuery 'a').should.deep.equal [

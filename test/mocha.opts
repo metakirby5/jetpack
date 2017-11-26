@@ -2,3 +2,4 @@
 --check-leaks
 --inline-diffs
 --throw-deprecation
+--compilers coffee:coffeescript/register
