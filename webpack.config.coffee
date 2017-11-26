@@ -35,6 +35,27 @@ isVendor = (module) ->
   r = module.userRequest
   typeof r is 'string' and r.match VENDOR_RE
 
+# Loader configurations
+
+stylusLoader =
+  loader: 'stylus-loader'
+  options:
+    use: [(require 'nib')()]
+    import: ['~nib/lib/nib/index.styl']
+    preferPathResolver: 'webpack'
+
+coffeelintPlugin = new webpack.LoaderOptionsPlugin
+  test: /\.coffee$/
+  options:
+    coffeelint:
+      configFile: 'coffeelint.json'
+
+stylintPlugin = new webpack.LoaderOptionsPlugin
+  test: /\.styl$/
+  options:
+    stylint:
+      config: 'stylint.json'
+
 # The main config
 config =
   # What file to start at
@@ -48,53 +69,38 @@ config =
 
   # Where to load modules from
   resolve:
-    root: SRC_PATH
-    modulesDirectories: VENDORS
+    modules: VENDORS.concat SRC_PATH
     extensions: [
-      '', '.coffee', '.gql',
+      '.coffee', '.gql',
       '.l.styl', '.styl', '.js', '.css'
     ]
     alias:
       schema: SCHEMA_PATH
 
-  # Stylus options
-  stylus:
-    use: [(require 'nib')()]
-    import: ['~nib/lib/nib/index.styl']
-    preferPathResolver: 'webpack'
-
-  # Coffeelint options
-  coffeelint:
-    configFile: 'coffeelint.json'
-
-  # Stylint options
-  stylint:
-    config: 'stylint.json'
-
   # Module loading options
   module:
+    rules: [
     # Linters, etc.
-    preLoaders: [
       # Coffeelint
+      enforce: 'pre'
       test: /\.coffee$/
-      loaders: ['coffee-lint']
+      loaders: ['coffee-lint-loader']
       exclude: VENDOR_RE
     ,
       # Stylint
-      test: /\.styl/
-      loaders: ['stylint']
+      enforce: 'pre'
+      test: /\.styl$/
+      loaders: ['stylint-loader']
       exclude: VENDOR_RE
-    ]
-
+    ,
     # Files to load
-    loaders: [
       # Pug
       test: /\.pug$/
-      loaders: ['pug-html']
+      loaders: ['pug-html-loader']
     ,
       # Coffeescript
       test: /\.coffee$/
-      loaders: ['coffee']
+      loaders: ['coffee-loader']
     ,
       # GraphQL
       test: /\.gql$/
@@ -102,16 +108,16 @@ config =
     ,
       # Stylus (locally scoped)
       test: /\.l\.styl$/
-      loaders: ['style', 'css?modules', 'stylus']
+      loaders: ['style-loader', 'css-loader?modules', stylusLoader]
     ,
       # Stylus (globally scoped)
       test: /\.styl$/
       exclude: /\.l\.styl$/
-      loaders: ['style', 'css', 'stylus']
+      loaders: ['style-loader', 'css-loader', stylusLoader]
     ,
       # Plain CSS
       test: /\.css$/
-      loaders: ['style', 'css']
+      loaders: ['style-loader', 'css-loader']
     ,
       # Media
       test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf)$/
@@ -119,6 +125,10 @@ config =
     ]
 
   plugins: [
+    # Loaders
+    coffeelintPlugin
+    stylintPlugin
+
     # Generate HTML
     new HtmlWebpackPlugin
       template: path.join SRC_PATH, "#{INDEX}.pug"
@@ -195,9 +205,6 @@ switch ENV
 
         # Optimize chunking
         new webpack.optimize.OccurrenceOrderPlugin()
-
-        # Deduplicate
-        new webpack.optimize.DedupePlugin()
 
         # Minify
         new webpack.optimize.UglifyJsPlugin

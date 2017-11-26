@@ -11,7 +11,7 @@
 {HttpLink} = require 'apollo-link-http'
 {InMemoryCache} = require 'apollo-cache-inmemory'
 
-{API} = require 'constants'
+{API} = require 'myconstants'
 store = require 'store'
 App = require 'layouts/App'
 LibList = require 'layouts/LibList'

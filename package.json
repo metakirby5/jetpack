@@ -62,8 +62,8 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^2.3.1",
     "url-loader": "^0.5.7",
-    "webpack": "^1.14.0",
-    "webpack-dev-server": "^1.16.2",
+    "webpack": "^3.8.0",
+    "webpack-dev-server": "^2.9.0",
     "webpack-merge": "^0.14.1"
   },
   "engines": {
