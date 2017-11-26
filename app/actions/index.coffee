@@ -4,9 +4,6 @@
 
 actions = [
   'queryChange'
-  'requestLibs'
-  'receiveLibs'
-  'errorLibs'
 ]
 
 # Generate action map

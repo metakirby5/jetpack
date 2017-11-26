@@ -15,6 +15,7 @@ projectConfig = require './config'
 
   # Input and output folders
   app: SRC_PATH
+  schema: SCHEMA_PATH
   test: TEST_PATH
   dist: BUILD_PATH
 } = projectConfig
@@ -49,7 +50,12 @@ config =
   resolve:
     root: SRC_PATH
     modulesDirectories: VENDORS
-    extensions: ['', '.coffee', '.l.styl', '.styl', '.js', '.css']
+    extensions: [
+      '', '.coffee', '.gql',
+      '.l.styl', '.styl', '.js', '.css'
+    ]
+    alias:
+      schema: SCHEMA_PATH
 
   # Stylus options
   stylus:
@@ -91,7 +97,7 @@ config =
       loaders: ['coffee']
     ,
       # GraphQL
-      test: /\.(graphql|gql)$/
+      test: /\.gql$/
       loaders: ['graphql-tag/loader']
     ,
       # Stylus (locally scoped)

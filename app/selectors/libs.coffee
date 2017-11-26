@@ -2,12 +2,11 @@
 
 {createSelector: cs} = require 'reselect'
 
-{$query, $libs} = require 'selectors'
+{sgql, $query} = require 'selectors'
 
 module.exports =
-  filteredByQuery: cs $query, $libs, (query, libs) ->
-    items = libs.items
+  filteredByQuery: cs $query, sgql('libs'), (query, libs) ->
     query = query.trim().toLowerCase()
     if query.length
-      items = items.filter (lib) -> lib.name.toLowerCase().match query
-    items
+      libs = libs.filter (lib) -> lib.name.toLowerCase().match query
+    libs

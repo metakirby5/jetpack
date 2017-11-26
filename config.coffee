@@ -8,6 +8,7 @@ module.exports =
   isProd: process.env.npm_lifecycle_event is 'start'
   app: dir 'app'
   server: dir 'server'
+  schema: dir 'schema'
   dist: dir 'dist'
   test: dir 'test'
   api: '/api'

@@ -6,13 +6,9 @@
 {default: thunk} = require 'redux-thunk'
 
 reducers = require 'reducers'
-{fetchLibs} = require 'actions/async'
 
 store = createStore reducers,
   applyMiddleware thunk, routerMiddleware browserHistory
-
-# Dispatch an initial fetch.
-store.dispatch fetchLibs()
 
 # Set up hot reloading.
 if module.hot

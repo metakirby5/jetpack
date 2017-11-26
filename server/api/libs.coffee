@@ -17,4 +17,4 @@ LIBS = [
 
 module.exports =
   Query:
-    libs: () -> LIBS
+    libs: -> LIBS

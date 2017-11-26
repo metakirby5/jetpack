@@ -1,33 +1,50 @@
 # A searchable listing of libs.
 
-{connect} = require 'react-redux'
 {DOM: d} = require 'react'
 
-{$query, $libs} = require 'selectors'
+{connect} = require 'react-redux'
+{compose, graphql} = require 'react-apollo'
+gql = require 'graphql-tag'
+
+{$query} = require 'selectors'
 {filteredByQuery} = require 'selectors/libs'
 {queryChange} = require 'actions'
 
-# The redux prop getter.
-stateProps = (state) ->
-  status: $libs(state).status
-  query: $query state
-  libs: filteredByQuery state
+# The redux connection.
+reduxConn = connect(
+  (state) ->
+    query: $query state
+,
+  (dispatch) ->
+    onQueryChange: (query) -> dispatch queryChange query
+)
 
-# The redux action dispatcher.
-actionProps = (dispatch) ->
-  onQueryChange: (query) -> dispatch queryChange query
+# The GraphQL query connection.
+gqlConn = graphql gql'
+{
+  libs {
+    name
+    url
+  }
+}
+'
 
 # The functional component.
-component = ({status, query, libs, onQueryChange}) ->
+component = (s) ->
   d.div 0,
     d.input
       type: 'text'
-      value: query
-      onChange: (e) -> onQueryChange e.target.value
+      value: s.query
+      onChange: (e) -> s.onQueryChange e.target.value
       placeholder: 'Type to search'
-    d.ul 0, status ? libs.map (lib) ->
-      d.li key: lib.name,
-        d.a href: lib.url, target: '_blank',
-          lib.name
+    if s.data.loading
+      d.div 0,
+        'LOADING...'
+    else
+      libs = filteredByQuery s
+      d.ul 0, libs.map (lib, i) ->
+        d.li key: i,
+          d.a href: lib.url, target: '_blank',
+            lib.name
 
-module.exports = (connect stateProps, actionProps) component
+module.exports = (compose gqlConn, reduxConn) component

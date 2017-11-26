@@ -5,17 +5,19 @@ path = require 'path'
 {filter, zip, merge} = require 'lodash'
 {makeExecutableSchema} = require 'graphql-tools'
 
-curdir = (args...) -> path.resolve __dirname, args...
+config = require '../../config.coffee'
+
+schemadir = (args...) -> path.join config.schema, args...
 
 # Get API files.
-apis = readdirSync __dirname
+apis = readdirSync schemadir()
   .filter((s) -> s.endsWith('.gql'))
   .map((s) -> s.slice 0, -4)
 
 # Programmatically create API.
 [schemas, resolvers] = zip(apis.map((k) -> [
-  readFileSync (curdir "#{k}.gql"), "UTF8"
-  require curdir "#{k}.coffee"
+  readFileSync (schemadir "#{k}.gql"), 'UTF8'
+  require "./#{k}.coffee"
 ])...)
 
 module.exports = makeExecutableSchema
