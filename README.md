@@ -53,7 +53,7 @@ All files are in `app/` unless otherwise noted.
     GraphQL-selector-factory when GraphQL data is needed.
 - Tests are considered any file within the `app` tree ending with `.spec.*`,
   where `*` is any extension (e.g. `coffee`). These are all automatically
-  picked up by `yarn test`.
+  picked up by `yarn test`, `yarn test:watch`, and `yarn test:browser`.
 
 # Server conventions
 
@@ -64,6 +64,9 @@ All files are in `app/` unless otherwise noted.
     - `index.coffee` here automatically creates an API based on the
       definitions in the schema folder. It `require`s the corresponding
       `.coffee` file in the API folder.
+- Tests are considered any file within the `server` tree ending with `.spec.*`,
+  where `*` is any extension (e.g. `coffee`). These are all automatically
+  picked up by `yarn test`, `yarn test:watch`, but not `yarn test:browser`.
 
 # TODO
 
