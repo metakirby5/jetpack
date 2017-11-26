@@ -11,8 +11,8 @@ jobs:
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
-            - ~/.cache/yarn
-            - ./node_modules
+            - ~/.yarn-cache
+            - node_modules
       - run: yarn test --reporter mocha-junit-reporter
       - store_artifacts:
           path: test-results.xml
