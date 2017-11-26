@@ -11,7 +11,7 @@ LIBS = [
   {name: 'cool'}
 ]
 
-withQuery = (query) -> {query, libs: {items: LIBS}}
+withQuery = (query) -> {query, data: {libs: LIBS}}
 
 describe 'libs', ->
   describe '#filteredByQuery', ->
