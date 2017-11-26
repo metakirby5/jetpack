@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@bower_components/skeleton@dhgamache/Skeleton#^2.0.4":
+  version "0.0.0"
+  resolved "https://codeload.github.com/dhgamache/Skeleton/tar.gz/88f03612b05f093e3f235ced77cf89d3a8fcf846"
+
 abbrev@1:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.0.9.tgz#91b4792588a7738c25f35dd6f63752a2f8776135"

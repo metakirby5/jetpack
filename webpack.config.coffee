@@ -20,7 +20,7 @@ projectConfig = require './config'
 } = projectConfig
 
 # Module folders
-VENDORS = ['node_modules', 'bower_components']
+VENDORS = ['node_modules', 'node_modules/@bower_components']
 VENDOR_RE = new RegExp VENDORS.join '|'
 
 # File names
