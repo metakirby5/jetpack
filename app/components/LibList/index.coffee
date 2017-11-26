@@ -4,11 +4,11 @@
 
 {connect} = require 'react-redux'
 {compose, graphql} = require 'react-apollo'
-gql = require 'graphql-tag'
 
 {$query} = require 'selectors'
 {filteredByQuery} = require 'selectors/libs'
 {queryChange} = require 'actions'
+LibsQuery = require 'query/libs'
 
 # The redux connection.
 reduxConn = connect(
@@ -20,14 +20,7 @@ reduxConn = connect(
 )
 
 # The GraphQL query connection.
-gqlConn = graphql gql'
-{
-  libs {
-    name
-    url
-  }
-}
-'
+gqlConn = graphql LibsQuery
 
 # The functional component.
 component = (s) ->

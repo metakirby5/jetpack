@@ -57,7 +57,9 @@ All files are in `app/` unless otherwise noted.
 
 # Server conventions
 
-- GraphQL schemas go in `schema/`.
+- GraphQL things go in `graphql/`.
+  - Schemas go in `schema/`.
+  - Queries go in `query/`.
 - Main server code goes in `server/`.
   - The entry point is `index.coffee`, and it hooks up the API and the app.
   - The API can be found under `API/`.

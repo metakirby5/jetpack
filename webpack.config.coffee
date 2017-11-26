@@ -16,6 +16,7 @@ projectConfig = require './config'
   # Input and output folders
   app: SRC_PATH
   schema: SCHEMA_PATH
+  query: QUERY_PATH
   test: TEST_PATH
   dist: BUILD_PATH
 } = projectConfig
@@ -56,6 +57,7 @@ config =
     ]
     alias:
       schema: SCHEMA_PATH
+      query: QUERY_PATH
 
   # Stylus options
   stylus:
