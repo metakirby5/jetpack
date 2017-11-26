@@ -15,8 +15,8 @@ reduxConn = connect(
   (state) ->
     query: $query state
 ,
-  (dispatch) ->
-    onQueryChange: (query) -> dispatch queryChange query
+  ->
+    onQueryChange: (query) -> queryChange query
 )
 
 # The GraphQL query connection.

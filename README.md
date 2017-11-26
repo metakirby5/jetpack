@@ -5,6 +5,7 @@ Minimal, opinionated, from-scratch webpack boilerplate with:
   - Coffeescript + Coffeelint
   - React + react-router
   - Redux + redux-act + reselect
+  - GraphQL + Apollo
   - Mocha + Chai
   - Stylus + Nib + Stylint
   - Skeleton CSS
@@ -32,7 +33,7 @@ results.
 
 All files are in `app/` unless otherwise noted.
 
-- All React components are pure functional components with Redux.
+- All React components are pure functional components with Redux and Apollo.
 - The entry point is `main.coffee`, which also sets up hot reloading.
 - The root component used for routing, etc. can be found at `Root.coffee`.
 - Each subcomponent gets a folder in `components/` with the following
@@ -40,16 +41,31 @@ All files are in `app/` unless otherwise noted.
   - `index.coffee`: Exports a Redux-connected component.
   - `style.l.styl`: Locally scoped styles for the component.
 - The store can be found at `store.coffee`, and the root reducer at
-  `reducers/index.coffee`.
+  `reducers/index.coffee`. The actions are bound to this store.
 - Each reducer gets a file in `reducers/`, and is automatically imported.
   It manages the state sub-tree matching its filename, sans extension.
 - Actions are created and handled using redux-act.
-  - Actions can be found at `actions/index.coffee`.
-  - Async actions can be found at `actions/async.coffee.`
+  - Simple actions can be found at `actions/index.coffee`.
+  - Apollo should be used to handle GraphQL queries.
+  - Asynchronous actions may go in `actions/async.coffee`.
+- Selectors are created automatically based on the reducers in `reducers/`.
+  - Complex selectors should be created with reselect, using the `sqgl`
+    GraphQL-selector-factory when GraphQL data is needed.
 - Tests are considered any file within the `app` tree ending with `.spec.*`,
   where `*` is any extension (e.g. `coffee`). These are all automatically
   picked up by `yarn test`.
 
 # Server conventions
 
-Probably will be GraphQL, TBD.
+- GraphQL schemas go in `schema/`.
+- Main server code goes in `server/`.
+  - The entry point is `index.coffee`, and it hooks up the API and the app.
+  - The API can be found under `API/`.
+    - `index.coffee` here automatically creates an API based on the
+      definitions in the schema folder. It `require`s the corresponding
+      `.coffee` file in the API folder.
+
+# TODO
+
+- Server tests.
+- Re-enable `coffeescript_error` lint.

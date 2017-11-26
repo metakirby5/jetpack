@@ -1,13 +1,9 @@
 # Simple actions.
 
+{fromPairs} = require 'lodash'
 {createAction} = require 'redux-act'
 
-actions = [
+# Generate action map.
+module.exports = fromPairs [
   'queryChange'
-]
-
-# Generate action map
-module.exports = actions.reduce ((a, n) ->
-  a[n] = createAction n
-  a
-), {}
+].map (action) -> [action, createAction action]
