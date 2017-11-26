@@ -2,4 +2,5 @@
 
 config = require '../config'
 
-module.exports = {API: config.api}
+module.exports =
+  API: config.api

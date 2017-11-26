@@ -16,7 +16,7 @@ server
   .use morgan if config.isProd then 'common' else 'dev'
 
   # API
-  .use '/api', require './api'
+  .use config.api, require './api'
 
 # Statically serve on prod
 if config.isProd

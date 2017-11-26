@@ -16,15 +16,13 @@ Example from http://gaearon.github.io/react-hot-loader/.
 
 # Usage
 
-You may (and probably should) substitute `npm` with `yarn`.
-
-- To install dependencies: `npm install && bower install`
-- To start serving for production: `npm start` (be sure to build first!)
-- To run the dev servers: `npm run dev`
+- To install dependencies: `yarn`
+- To start serving for production: `yarn start` (be sure to build first!)
+- To run the dev servers: `yarn dev`
   - The main server is at `localhost:3000`, which proxies everything but
     `/api` to `webpack-dev-server` at `localhost:8080`
-- To test: `npm test`, `npm run test:watch`, or `npm run test:browser`
-- To build deduplicated, minified html/scripts into `dist/`: `npm run build`
+- To test: `yarn test`, `yarn test:watch`, or `yarn test:browser`
+- To build deduplicated, minified html/scripts into `dist/`: `yarn build`
 
 The webpack configuration is generated based on `npm_lifecycle_event`, so
 running the scripts from `package.json` directly will not yield the correct
@@ -50,7 +48,7 @@ All files are in `app/` unless otherwise noted.
   - Async actions can be found at `actions/async.coffee.`
 - Tests are considered any file within the `app` tree ending with `.spec.*`,
   where `*` is any extension (e.g. `coffee`). These are all automatically
-  picked up by `npm test`.
+  picked up by `yarn test`.
 
 # Server conventions
 
