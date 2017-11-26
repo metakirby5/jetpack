@@ -90,6 +90,10 @@ config =
       test: /\.coffee$/
       loaders: ['coffee']
     ,
+      # GraphQL
+      test: /\.(graphql|gql)$/
+      loaders: ['graphql-tag/loader']
+    ,
       # Stylus (locally scoped)
       test: /\.l\.styl$/
       loaders: ['style', 'css?modules', 'stylus']

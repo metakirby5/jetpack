@@ -1,0 +1,8 @@
+type Lib {
+  name: String!
+  url: String
+}
+
+type Query {
+  libs: [Lib]
+}

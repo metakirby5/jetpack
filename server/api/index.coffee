@@ -1,10 +1,23 @@
-# API routing.
+# The GraphQL API creator. You shouldn't touch this.
 
-{Router} = require 'express'
+path = require 'path'
+{readdirSync, readFileSync} = require 'fs'
+{filter, zip, merge} = require 'lodash'
+{makeExecutableSchema} = require 'graphql-tools'
 
-api = Router()
+curdir = (args...) -> path.resolve __dirname, args...
 
-api
-  .use '/libs', require './libs'
+# Get API files.
+apis = readdirSync __dirname
+  .filter((s) -> s.endsWith('.gql'))
+  .map((s) -> s.slice 0, -4)
 
-module.exports = api
+# Programmatically create API.
+[schemas, resolvers] = zip(apis.map((k) -> [
+  readFileSync (curdir "#{k}.gql"), "UTF8"
+  require curdir "#{k}.coffee"
+])...)
+
+module.exports = makeExecutableSchema
+  typeDefs: schemas
+  resolvers: merge(resolvers...)

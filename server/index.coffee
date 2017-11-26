@@ -3,6 +3,8 @@
 path = require 'path'
 express = require 'express'
 morgan = require 'morgan'
+bodyParser = require 'body-parser'
+graphql = require 'express-graphql'
 proxy = require 'express-http-proxy'
 
 config = require '../config'
@@ -16,7 +18,9 @@ server
   .use morgan if config.isProd then 'common' else 'dev'
 
   # API
-  .use config.api, require './api'
+  .use config.api, bodyParser.json(), graphql
+    schema: require './api'
+    graphiql: not config.isProd
 
 # Statically serve on prod
 if config.isProd
