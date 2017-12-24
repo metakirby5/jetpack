@@ -10,10 +10,10 @@ Minimal, opinionated, from-scratch webpack boilerplate with:
   - Stylus + Nib + Stylint
   - Skeleton CSS
   - Pug
-  - Source maps + React Hot Loader 3.0 beta 3 for development
+  - Source maps + React Hot Loader for development
   - Deduplication + minification for production
 
-Example from http://gaearon.github.io/react-hot-loader/.
+Example adapted from http://gaearon.github.io/react-hot-loader/.
 
 # Usage
 
@@ -69,4 +69,4 @@ All files are in `app/` unless otherwise noted.
       `.coffee` file in the API folder.
 - Tests are considered any file within the `server` tree ending with `.spec.*`,
   where `*` is any extension (e.g. `coffee`). These are all automatically
-  picked up by `yarn test`, `yarn test:watch`, but not `yarn test:browser`.
+  picked up by `yarn test` and `yarn test:watch`, but *not* `yarn test:browser`.
