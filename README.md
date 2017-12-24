@@ -70,7 +70,3 @@ All files are in `app/` unless otherwise noted.
 - Tests are considered any file within the `server` tree ending with `.spec.*`,
   where `*` is any extension (e.g. `coffee`). These are all automatically
   picked up by `yarn test`, `yarn test:watch`, but not `yarn test:browser`.
-
-# TODO
-
-- Re-enable `coffeescript_error` lint.

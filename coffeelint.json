@@ -11,7 +11,7 @@
     "level": "error"
   },
   "coffeescript_error": {
-    "level": "ignore"
+    "level": "error"
   },
   "colon_assignment_spacing": {
     "level": "error",
