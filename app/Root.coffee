@@ -3,8 +3,8 @@
 {createElement: ce} = require 'react'
 
 {Provider} = require 'react-redux'
-{Router, Route, browserHistory} = require 'react-router'
-{syncHistoryWithStore} = require 'react-router-redux'
+{Router, Route} = require 'react-router'
+{ConnectedRouter} = require 'react-router-redux'
 
 {ApolloProvider} = require 'react-apollo'
 {ApolloClient} = require 'apollo-client'
@@ -13,20 +13,19 @@
 
 {API} = require 'myconstants'
 store = require 'store'
-App = require 'layouts/App'
-LibList = require 'layouts/LibList'
-NotFound = require 'layouts/NotFound'
+history = require 'myhistory'
 
-history = syncHistoryWithStore browserHistory, store
+App = require 'layouts/App'
+
 client = new ApolloClient
   link: new HttpLink
     uri: API
   cache: new InMemoryCache()
 
-module.exports = ->
+Root = ->
   ce Provider, {store},
     ce ApolloProvider, {client},
-      ce Router, {history},
-        ce Route, component: App,
-          ce Route, path: '/', component: LibList
-          ce Route, path: '*', component: NotFound
+      ce ConnectedRouter, {history},
+        ce Route, component: App
+
+module.exports = Root

@@ -1,6 +1,6 @@
 # A searchable listing of libs.
 
-{DOM: d} = require 'react'
+d = require 'react-dom-factories'
 
 {connect} = require 'react-redux'
 {compose, graphql} = require 'react-apollo'
@@ -23,7 +23,7 @@ reduxConn = connect(
 gqlConn = graphql LibsQuery
 
 # The functional component.
-component = (s) ->
+LibList = (s) ->
   d.div 0,
     d.input
       type: 'text'
@@ -40,4 +40,4 @@ component = (s) ->
           d.a href: lib.url, target: '_blank',
             lib.name
 
-module.exports = (compose gqlConn, reduxConn) component
+module.exports = (compose gqlConn, reduxConn) LibList

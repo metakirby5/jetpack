@@ -2,6 +2,7 @@ path = require 'path'
 webpack = require 'webpack'
 merge = require 'webpack-merge'
 HtmlWebpackPlugin = require 'html-webpack-plugin'
+UglifyJsPlugin = require 'uglifyjs-webpack-plugin'
 
 projectConfig = require './config'
 
@@ -98,7 +99,7 @@ config =
     # Files to load
       # Pug
       test: /\.pug$/
-      loaders: ['pug-html-loader']
+      loaders: ['html-loader', 'pug-html-loader']
     ,
       # Coffeescript
       test: /\.coffee$/
@@ -190,6 +191,9 @@ switch ENV
           'process.env':
             NODE_ENV: '"development"'
 
+        # Named modules
+        new webpack.NamedModulesPlugin()
+
         # General hot loading
         new webpack.HotModuleReplacementPlugin()
       ]
@@ -209,9 +213,7 @@ switch ENV
         new webpack.optimize.OccurrenceOrderPlugin()
 
         # Minify
-        new webpack.optimize.UglifyJsPlugin
-          compress:
-            warnings: false
+        new UglifyJsPlugin()
       ]
 
   when 'test', 'test:watch', 'test:browser'  # Test
