@@ -23,6 +23,7 @@ Example from http://gaearon.github.io/react-hot-loader/.
   - The main server is at `localhost:3000`, which proxies everything but
     `/api` to `webpack-dev-server` at `localhost:8080`
 - To test: `yarn test`, `yarn test:watch`, or `yarn test:browser`
+  - Note: `yarn test:browser` will only pick up tests in `app/`.
 - To build deduplicated, minified html/scripts into `dist/`: `yarn build`
 
 The webpack configuration is generated based on `npm_lifecycle_event`, so

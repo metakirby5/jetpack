@@ -128,10 +128,6 @@ config =
     ]
 
   plugins: [
-    # Loaders
-    coffeelintPlugin
-    stylintPlugin
-
     # Generate HTML
     new HtmlWebpackPlugin
       template: path.join SRC_PATH, "#{INDEX}.pug"
@@ -141,6 +137,15 @@ config =
       name: VENDOR
       minChunks: isVendor
   ]
+
+withLint = (config) ->
+  merge config,
+    plugins: [
+      # Loaders
+      coffeelintPlugin
+      stylintPlugin
+    ]
+config = withLint config
 
 # Dev server config
 devServerOpts =
@@ -170,6 +175,24 @@ devServerOpts =
     # Pretty colors
     colors: true
 
+withHot = (config) ->
+  merge config,
+    module:
+      loaders: [
+        test: /\.coffee$/
+        loaders: ['react-hot-loader/webpack']
+      ]
+
+    plugins: [
+        # Named modules
+        new webpack.NamedModulesPlugin()
+
+        # General hot loading
+        new webpack.HotModuleReplacementPlugin()
+    ]
+
+    devServer: devServerOpts
+
 # Options based on environment
 switch ENV
   when 'dev'  # Development
@@ -178,27 +201,13 @@ switch ENV
       # Source maps
       devtool: 'cheap-module-eval-source-map'
 
-      # React hot loading
-      module:
-        loaders: [
-          test: /\.coffee$/
-          loaders: ['react-hot-loader/webpack']
-        ]
-
       plugins: [
         # Development environment variable
         new webpack.DefinePlugin
           'process.env':
             NODE_ENV: '"development"'
-
-        # Named modules
-        new webpack.NamedModulesPlugin()
-
-        # General hot loading
-        new webpack.HotModuleReplacementPlugin()
       ]
-
-      devServer: devServerOpts
+    config = withHot config
 
   when 'build'  # Production
     console.log 'Building production scripts...'
@@ -219,45 +228,54 @@ switch ENV
   when 'test', 'test:watch', 'test:browser'  # Test
     process.stdout.write 'Testing '
 
-    # Set up testing output
-    config.output.path = TEST_PATH
+    config = merge config,
+      output:
+        path: TEST_PATH
+      devtool: 'inline-source-map'
 
-    # Source maps
-    config.devtool = 'inline-source-map'
+    # Set up testing input
+    config.entry = [
+      'source-map-support/register'
+      path.join TEST_PATH, "#{TEST}.coffee"
+    ]
 
     # View tests on browser
     if ENV.match 'browser'
       console.log 'with dev server...'
 
-      # Set up testing input
-      config.entry = [path.join "mocha!#{TEST_PATH}", "#{TEST}.coffee"]
+      config = merge config,
+        # Suppress source-map-support warnings
+        node:
+          fs: 'empty'
+          module: 'empty'
+
+        # Use mocha loader on *.spec.* files
+        module:
+          rules: [
+            enforce: 'post'
+            test: /\.spec\..*$/
+            use: 'mocha-loader'
+          ]
 
       config.plugins = [
         # Generate test HTML
         new HtmlWebpackPlugin
           template: path.join TEST_PATH, "#{INDEX}.pug"
-
-        # General hot loading
-        new webpack.HotModuleReplacementPlugin()
       ]
 
-      config.devServer = devServerOpts
+      config = withHot config
 
     # View tests on CLI
     else
       console.log 'on the command line...'
-
-      # Set up testing input
-      config.entry = [
-        'source-map-support/register'
-        path.join TEST_PATH, "#{TEST}.coffee"
-      ]
 
       # Build for node
       config.target = 'node'
 
       # Disable output bundling
       config.plugins = []
+
+    config = withLint config
 
     # Test environment variable
     config.plugins.push new webpack.DefinePlugin
