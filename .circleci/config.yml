@@ -1,21 +1,26 @@
 version: 2
 jobs:
-   build:
-     docker:
-       - image: circleci/node:8
+  build:
+    docker:
+      - image: circleci/node:8
     steps:
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
-      - run: yarn
+      - run:
+          name: Download dependencies
+          command: yarn
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
-            - ~/.cache/yarn
-            - ./node_modules
-      - run: yarn test --reporter mocha-junit-reporter
-      - store_artifacts:
-          path: test-results.xml
-          prefix: tests
+            - ~/.yarn-cache
+            - node_modules
+      - run:
+          name: Run tests
+          command: >
+            yarn test
+            --reporter mocha-junit-reporter
+            --reporter-options
+            mochaFile=test-results/test-results.xml
       - store_test_results:
-          path: test-results.xml
+          path: test-results
