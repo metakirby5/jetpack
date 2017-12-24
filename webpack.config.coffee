@@ -2,6 +2,7 @@ path = require 'path'
 webpack = require 'webpack'
 merge = require 'webpack-merge'
 HtmlWebpackPlugin = require 'html-webpack-plugin'
+UglifyJsPlugin = require 'uglifyjs-webpack-plugin'
 
 projectConfig = require './config'
 
@@ -36,6 +37,27 @@ isVendor = (module) ->
   r = module.userRequest
   typeof r is 'string' and r.match VENDOR_RE
 
+# Loader configurations
+
+stylusLoader =
+  loader: 'stylus-loader'
+  options:
+    use: [(require 'nib')()]
+    import: ['~nib/lib/nib/index.styl']
+    preferPathResolver: 'webpack'
+
+coffeelintPlugin = new webpack.LoaderOptionsPlugin
+  test: /\.coffee$/
+  options:
+    coffeelint:
+      configFile: 'coffeelint.json'
+
+stylintPlugin = new webpack.LoaderOptionsPlugin
+  test: /\.styl$/
+  options:
+    stylint:
+      config: 'stylint.json'
+
 # The main config
 config =
   # What file to start at
@@ -49,54 +71,39 @@ config =
 
   # Where to load modules from
   resolve:
-    root: SRC_PATH
-    modulesDirectories: VENDORS
+    modules: VENDORS.concat SRC_PATH
     extensions: [
-      '', '.coffee', '.gql',
+      '.coffee', '.gql',
       '.l.styl', '.styl', '.js', '.css'
     ]
     alias:
       schema: SCHEMA_PATH
       query: QUERY_PATH
 
-  # Stylus options
-  stylus:
-    use: [(require 'nib')()]
-    import: ['~nib/lib/nib/index.styl']
-    preferPathResolver: 'webpack'
-
-  # Coffeelint options
-  coffeelint:
-    configFile: 'coffeelint.json'
-
-  # Stylint options
-  stylint:
-    config: 'stylint.json'
-
   # Module loading options
   module:
+    rules: [
     # Linters, etc.
-    preLoaders: [
       # Coffeelint
+      enforce: 'pre'
       test: /\.coffee$/
-      loaders: ['coffee-lint']
+      loaders: ['coffee-lint-loader']
       exclude: VENDOR_RE
     ,
       # Stylint
-      test: /\.styl/
-      loaders: ['stylint']
+      enforce: 'pre'
+      test: /\.styl$/
+      loaders: ['stylint-loader']
       exclude: VENDOR_RE
-    ]
-
+    ,
     # Files to load
-    loaders: [
       # Pug
       test: /\.pug$/
-      loaders: ['pug-html']
+      loaders: ['html-loader', 'pug-html-loader']
     ,
       # Coffeescript
       test: /\.coffee$/
-      loaders: ['coffee']
+      loaders: ['coffee-loader']
     ,
       # GraphQL
       test: /\.gql$/
@@ -104,16 +111,16 @@ config =
     ,
       # Stylus (locally scoped)
       test: /\.l\.styl$/
-      loaders: ['style', 'css?modules', 'stylus']
+      loaders: ['style-loader', 'css-loader?modules', stylusLoader]
     ,
       # Stylus (globally scoped)
       test: /\.styl$/
       exclude: /\.l\.styl$/
-      loaders: ['style', 'css', 'stylus']
+      loaders: ['style-loader', 'css-loader', stylusLoader]
     ,
       # Plain CSS
       test: /\.css$/
-      loaders: ['style', 'css']
+      loaders: ['style-loader', 'css-loader']
     ,
       # Media
       test: /\.(png|jpe?g|gif|svg|woff2?|eot|ttf)$/
@@ -130,6 +137,15 @@ config =
       name: VENDOR
       minChunks: isVendor
   ]
+
+withLint = (config) ->
+  merge config,
+    plugins: [
+      # Loaders
+      coffeelintPlugin
+      stylintPlugin
+    ]
+config = withLint config
 
 # Dev server config
 devServerOpts =
@@ -159,6 +175,24 @@ devServerOpts =
     # Pretty colors
     colors: true
 
+withHot = (config) ->
+  merge config,
+    module:
+      loaders: [
+        test: /\.coffee$/
+        loaders: ['react-hot-loader/webpack']
+      ]
+
+    plugins: [
+        # Named modules
+        new webpack.NamedModulesPlugin()
+
+        # General hot loading
+        new webpack.HotModuleReplacementPlugin()
+    ]
+
+    devServer: devServerOpts
+
 # Options based on environment
 switch ENV
   when 'dev'  # Development
@@ -167,24 +201,13 @@ switch ENV
       # Source maps
       devtool: 'cheap-module-eval-source-map'
 
-      # React hot loading
-      module:
-        loaders: [
-          test: /\.coffee$/
-          loaders: ['react-hot-loader/webpack']
-        ]
-
       plugins: [
         # Development environment variable
         new webpack.DefinePlugin
           'process.env':
             NODE_ENV: '"development"'
-
-        # General hot loading
-        new webpack.HotModuleReplacementPlugin()
       ]
-
-      devServer: devServerOpts
+    config = withHot config
 
   when 'build'  # Production
     console.log 'Building production scripts...'
@@ -198,57 +221,61 @@ switch ENV
         # Optimize chunking
         new webpack.optimize.OccurrenceOrderPlugin()
 
-        # Deduplicate
-        new webpack.optimize.DedupePlugin()
-
         # Minify
-        new webpack.optimize.UglifyJsPlugin
-          compress:
-            warnings: false
+        new UglifyJsPlugin()
       ]
 
   when 'test', 'test:watch', 'test:browser'  # Test
     process.stdout.write 'Testing '
 
-    # Set up testing output
-    config.output.path = TEST_PATH
+    config = merge config,
+      output:
+        path: TEST_PATH
+      devtool: 'inline-source-map'
 
-    # Source maps
-    config.devtool = 'inline-source-map'
+    # Set up testing input
+    config.entry = [
+      'source-map-support/register'
+      path.join TEST_PATH, "#{TEST}.coffee"
+    ]
 
     # View tests on browser
     if ENV.match 'browser'
       console.log 'with dev server...'
 
-      # Set up testing input
-      config.entry = [path.join "mocha!#{TEST_PATH}", "#{TEST}.coffee"]
+      config = merge config,
+        # Suppress source-map-support warnings
+        node:
+          fs: 'empty'
+          module: 'empty'
+
+        # Use mocha loader on *.spec.* files
+        module:
+          rules: [
+            enforce: 'post'
+            test: /\.spec\..*$/
+            use: 'mocha-loader'
+          ]
 
       config.plugins = [
         # Generate test HTML
         new HtmlWebpackPlugin
           template: path.join TEST_PATH, "#{INDEX}.pug"
-
-        # General hot loading
-        new webpack.HotModuleReplacementPlugin()
       ]
 
-      config.devServer = devServerOpts
+      config = withHot config
 
     # View tests on CLI
     else
       console.log 'on the command line...'
-
-      # Set up testing input
-      config.entry = [
-        'source-map-support/register'
-        path.join TEST_PATH, "#{TEST}.coffee"
-      ]
 
       # Build for node
       config.target = 'node'
 
       # Disable output bundling
       config.plugins = []
+
+    config = withLint config
 
     # Test environment variable
     config.plugins.push new webpack.DefinePlugin

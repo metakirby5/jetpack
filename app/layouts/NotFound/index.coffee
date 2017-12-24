@@ -1,11 +1,14 @@
 # 404 page.
 
-{DOM: d} = require 'react'
+d = require 'react-dom-factories'
+
 s = require './style'
 
-module.exports = ->
+NotFoundLayout = ->
   d.main className: s.errorMain,
     d.header className: s.errorCode,
       '404'
     d.summary className: s.errorMessage,
       'not found'
+
+module.exports = NotFoundLayout
