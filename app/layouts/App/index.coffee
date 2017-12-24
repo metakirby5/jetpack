@@ -9,7 +9,7 @@ s = require './style'
 LibList = require 'layouts/LibList'
 NotFound = require 'layouts/NotFound'
 
-App = ({children}) ->
+App = ->
   d.main className: s.content,
     d.nav className: s.navbar,
       d.aside className: s.brand,
