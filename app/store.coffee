@@ -9,7 +9,10 @@ reducers = require 'reducers'
 actions = require 'actions'
 history = require 'myhistory'
 
-compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? compose
+# Activate dev tools.
+if process.env.NODE_ENV is 'development'
+  compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? compose
+
 store = createStore reducers, compose applyMiddleware(
   thunk
   routerMiddleware history
