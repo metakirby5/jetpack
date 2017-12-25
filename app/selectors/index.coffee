@@ -4,11 +4,13 @@
 {at, head} = require 'lodash'
 
 # Programmatically create accessors.
-reducerReq = require.context 'reducers', false, /^\.\/[^.]*$/
+# $path$to$reducer -> head at state, 'path.to.reducer'
+reducerReq = require.context 'reducers', true, /^\.\/[^.]+[^/]$/
 module.exports = reducerReq.keys().reduce ((a, n) ->
-  if n isnt './index'
+  if not n.match /\/(index)?$/
     field = n.slice 2
-    a["$#{field}"] = (state) -> state[field]
+    a["$#{field.replace /\//g, '$'}"] = (state) ->
+      head at state, field.replace /\//g, '.'
   a
 ),
   # Selector for GraphQL.

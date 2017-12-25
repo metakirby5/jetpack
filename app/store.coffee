@@ -10,8 +10,10 @@ actions = require 'actions'
 history = require 'myhistory'
 
 compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? compose
-store = createStore reducers,
-  compose applyMiddleware thunk, routerMiddleware history
+store = createStore reducers, compose applyMiddleware(
+  thunk
+  routerMiddleware history
+)
 
 # Mutatively bind all simple actions to the store.
 assignAll actions, store

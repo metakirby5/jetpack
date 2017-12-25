@@ -3,7 +3,7 @@
 Minimal, opinionated, from-scratch webpack boilerplate with:
   - Express
   - Coffeescript + Coffeelint
-  - React + react-router
+  - React + react-router + react-helmet
   - Redux + redux-act + reselect
   - GraphQL + Apollo
   - Mocha + Chai
@@ -12,6 +12,7 @@ Minimal, opinionated, from-scratch webpack boilerplate with:
   - Pug
   - Source maps + React Hot Loader for development
   - Deduplication + minification for production
+  - Probably some other goodies I forgot
 
 Example adapted from http://gaearon.github.io/react-hot-loader/.
 

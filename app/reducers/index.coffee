@@ -1,12 +1,9 @@
 # The root reducer. You shouldn't touch this.
 
-{combineReducers} = require 'redux'
 {routerReducer} = require 'react-router-redux'
+{autoReduce} = require 'myutil'
 
 # Require all reducers programatically.
-reducerReq = require.context '.', false, /^\.\/[^.]*$/
-module.exports = combineReducers reducerReq.keys().reduce ((a, n) ->
-  a[n.slice 2] = reducerReq n if n isnt './index'
-  a
-), # Then add vendor reducers.
+module.exports = autoReduce require.context('.', true, /^\.\/[^./]+$/),
+  # Add vendor reducers.
   router: routerReducer
