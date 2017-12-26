@@ -71,3 +71,7 @@ All files are in `app/` unless otherwise noted.
 - Tests are considered any file within the `server` tree ending with `.spec.*`,
   where `*` is any extension (e.g. `coffee`). These are all automatically
   picked up by `yarn test` and `yarn test:watch`, but *not* `yarn test:browser`.
+
+# TODO
+
+- [ ] Switch from `require` to `import` and `export`.
