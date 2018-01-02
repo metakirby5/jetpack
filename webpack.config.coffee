@@ -119,7 +119,16 @@ config =
     ,
       # Stylus (locally scoped)
       test: /\.l\.styl$/
-      loaders: ['style-loader', 'css-loader?modules', stylusLoader]
+      loaders: [
+        'style-loader'
+      ,
+        loader: 'css-loader'
+        options:
+          modules: true
+          localIdentName: '[hash:5]'
+      ,
+        stylusLoader
+      ]
     ,
       # Stylus (globally scoped)
       test: /\.styl$/
