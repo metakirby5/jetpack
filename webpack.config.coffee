@@ -234,6 +234,9 @@ switch ENV
         # Consistent module IDs
         new webpack.HashedModuleIdsPlugin()
 
+        # Hoist scopes
+        new webpack.optimize.ModuleConcatenationPlugin()
+
         # Separate vendor bundle
         new webpack.optimize.CommonsChunkPlugin
           name: VENDOR
