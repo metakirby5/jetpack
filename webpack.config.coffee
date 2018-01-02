@@ -215,7 +215,8 @@ switch ENV
     console.log 'Building production scripts...'
     config = merge config,
       output:
-        filename: '[name].[chunkhash].js'
+        filename: '[name].[chunkhash:5].js'
+        chunkFilename: '[name].[chunkhash:5].js'
 
       plugins: [
         # Production environment variable

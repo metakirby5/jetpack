@@ -27,8 +27,12 @@ App = ->
             $ Link, to: '/404', '404 link'
       $ Switch, 0,
         $ Route, exact: true, path: '/', component: load ->
-          `import('layouts/LibList')`
+          `import(
+            /* webpackChunkName: 'layouts/LibList' */
+            'layouts/LibList')`
         $ Route, path: '*', component: load ->
-          `import('layouts/NotFound')`
+          `import(
+            /* webpackChunkName: 'layouts/NotFound' */
+            'layouts/NotFound')`
 
 export default App
