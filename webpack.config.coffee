@@ -107,7 +107,7 @@ config =
       loaders: [
         loader: 'babel-loader'
         options:
-          plugins: ['syntax-dynamic-import','lodash']
+          plugins: ['syntax-dynamic-import', 'lodash']
       ,
         'coffee-loader'
       ]
