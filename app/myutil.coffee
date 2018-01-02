@@ -4,6 +4,8 @@ import {merge} from 'lodash'
 import {combineReducers} from 'redux'
 import Loadable from 'react-loadable'
 import Spinner from 'react-spinkit'
+import {Transition} from 'react-transition-group'
+import st from 'styles/transition'
 import s from './style'
 
 # Reducer boilerplate for Object.assign.
@@ -24,11 +26,32 @@ export autoReduce = (ctx, additional = {}) ->
 export $ = new Proxy createElement,
   get: (target, prop) -> (args...) -> createElement prop, args...
 
-DEFAULT_SPINNER = ->
+MAKE_SPINNER = (props = {}) -> $ Spinner,
+  merge props,
+    name: 'double-bounce'
+
+DEFAULT_SPINNER = (p) ->
   $.div className: s.spinnerContainer,
-    $ Spinner,
-      name: 'double-bounce'
-      fadeIn: 'quarter'
+    if p.error
+      $.div className: s.error,
+        'Error!'
+    else if p.timedOut
+      [
+        MAKE_SPINNER
+          key: 0
+          fadeIn: 'none'
+        $ Transition,
+          key: 1
+          in: true
+          appear: true
+          timeout: 200
+          (state) ->
+            $.div
+              className: [s.info, st.fade, st[state]].join ' '
+              'Still loading...'
+      ]
+    else
+      MAKE_SPINNER()
 
 # Dynamically load a component.
 export load =
@@ -36,3 +59,4 @@ export load =
     Loadable
       loader: loader
       loading: loading
+      timeout: 5000
