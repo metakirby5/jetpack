@@ -1,7 +1,7 @@
 # A test suite for lib selectors.
 
 import {should} from 'chai'
-import libs from './libs'
+import {filteredByQuery} from './libs'
 
 should()
 
@@ -18,22 +18,22 @@ withQuery = (query) -> {query, data: {libs: LIBS}}
 describe 'app', -> describe 'libs', ->
   describe '#filteredByQuery', ->
     it 'should filter to a single result', (done) ->
-      (libs.filteredByQuery withQuery 'a').should.deep.equal [
+      (filteredByQuery withQuery 'a').should.deep.equal [
         {name: 'a'}
       ]
       done()
     it 'should be case insensitive', (done) ->
-      (libs.filteredByQuery withQuery 'b').should.deep.equal [
+      (filteredByQuery withQuery 'b').should.deep.equal [
         {name: 'b'}
         {name: 'B'}
       ]
-      (libs.filteredByQuery withQuery 'B').should.deep.equal [
+      (filteredByQuery withQuery 'B').should.deep.equal [
         {name: 'b'}
         {name: 'B'}
       ]
       done()
     it 'should do prefix matching', (done) ->
-      (libs.filteredByQuery withQuery 'c').should.deep.equal [
+      (filteredByQuery withQuery 'c').should.deep.equal [
         {name: 'c'}
         {name: 'cool'}
       ]
