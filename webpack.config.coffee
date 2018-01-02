@@ -2,6 +2,7 @@ path = require 'path'
 webpack = require 'webpack'
 merge = require 'webpack-merge'
 HtmlWebpackPlugin = require 'html-webpack-plugin'
+PreloadWebpackPlugin = require 'preload-webpack-plugin'
 UglifyJsPlugin = require 'uglifyjs-webpack-plugin'
 {BundleAnalyzerPlugin} = require 'webpack-bundle-analyzer'
 
@@ -138,6 +139,9 @@ config =
     # Generate HTML
     new HtmlWebpackPlugin
       template: path.join SRC_PATH, "#{INDEX}.pug"
+
+    # Preload dynamic imports
+    new PreloadWebpackPlugin()
   ]
 
 withLint = (config) ->

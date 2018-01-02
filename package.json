@@ -51,6 +51,7 @@
     "morgan": "^1.7.0",
     "nib": "^1.1.2",
     "nodemon": "^1.11.0",
+    "preload-webpack-plugin": "^2.1.1",
     "pug-html-loader": "^1.1.5",
     "react": "^16.2.0",
     "react-apollo": "^2.0.1",
