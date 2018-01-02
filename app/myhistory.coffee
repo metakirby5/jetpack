@@ -1,2 +1,2 @@
-{default: createHistory} = require 'history/createBrowserHistory'
-module.exports = createHistory()
+import createHistory from 'history/createBrowserHistory'
+export default createHistory()

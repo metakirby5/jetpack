@@ -1,13 +1,13 @@
 # Main app frame.
 
-{$} = require 'myutil'
-{Switch, Route} = require 'react-router'
-{Link} = require 'react-router-dom'
-{Helmet} = require 'react-helmet'
+import {$} from 'myutil'
+import {Switch, Route} from 'react-router'
+import {Link} from 'react-router-dom'
+import {Helmet} from 'react-helmet'
 
-s = require './style'
-LibList = require 'layouts/LibList'
-NotFound = require 'layouts/NotFound'
+import s from './style'
+import LibList from 'layouts/LibList'
+import NotFound from 'layouts/NotFound'
 
 App = ->
   $.div 0,
@@ -31,4 +31,4 @@ App = ->
         $ Route, exact: true, path: '/', component: LibList
         $ Route, path: '*', component: NotFound
 
-module.exports = App
+export default App

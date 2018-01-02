@@ -1,5 +1,3 @@
 # Asynchronous actions.
 
-actions = require 'actions'
-
-module.exports = {}
+import actions from 'actions'

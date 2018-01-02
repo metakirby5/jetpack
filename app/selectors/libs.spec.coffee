@@ -1,7 +1,9 @@
 # A test suite for lib selectors.
 
-require('chai').should()
-libs = require './libs'
+import {should} from 'chai'
+import libs from './libs'
+
+should()
 
 LIBS = [
   {name: 'a'}

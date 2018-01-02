@@ -1,6 +1,5 @@
 # Constants for the app.
 
-config = require '../config'
+import config from '../config'
 
-module.exports =
-  API: config.api
+export API = config.api

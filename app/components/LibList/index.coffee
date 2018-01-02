@@ -1,43 +1,42 @@
 # A searchable listing of libs.
 
-{$} = require 'myutil'
+import {$} from 'myutil'
+import {connect} from 'react-redux'
+import {compose, graphql} from 'react-apollo'
 
-{connect} = require 'react-redux'
-{compose, graphql} = require 'react-apollo'
-
-{$query} = require 'selectors'
-{filteredByQuery} = require 'selectors/libs'
-{queryChange} = require 'actions'
-LibsQuery = require 'query/libs'
+import {q} from 'selectors'
+import a from 'actions'
+import {filteredByQuery} from 'selectors/libs'
+import LibsQuery from 'query/libs'
 
 # The redux connection.
 reduxConn = connect(
   (state) ->
-    query: $query state
+    query: q.query state
 ,
   ->
-    onQueryChange: (query) -> queryChange query
+    onQueryChange: a.queryChange
 )
 
 # The GraphQL query connection.
 gqlConn = graphql LibsQuery
 
 # The functional component.
-LibList = (s) ->
+LibList = (p) ->
   $.div 0,
     $.input
       type: 'text'
-      value: s.query
-      onChange: (e) -> s.onQueryChange e.target.value
+      value: p.query
+      onChange: (e) -> p.onQueryChange e.target.value
       placeholder: 'Type to search'
-    if s.data.loading
+    if p.data.loading
       $.div 0,
         'LOADING...'
     else
-      libs = filteredByQuery s
+      libs = filteredByQuery p
       $.ul 0, libs.map (lib, i) ->
         $.li key: i,
           $.a href: lib.url, target: '_blank',
             lib.name
 
-module.exports = (compose gqlConn, reduxConn) LibList
+export default (compose gqlConn, reduxConn) LibList

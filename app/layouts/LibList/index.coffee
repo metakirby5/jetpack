@@ -1,9 +1,9 @@
 # The page layout for LibList.
 
-{$} = require 'myutil'
+import {$} from 'myutil'
 
-s = require './style'
-LibList = require 'components/LibList'
+import s from './style'
+import LibList from 'components/LibList'
 
 LibListLayout = ->
   $.div className: s.container,
@@ -11,4 +11,4 @@ LibListLayout = ->
     $.div className: s.main,
       $ LibList
 
-module.exports = LibListLayout
+export default LibListLayout

@@ -1,20 +1,20 @@
 # The base element. In this case, it is a Redux provider + router.
 
-{$} = require 'myutil'
-{Provider} = require 'react-redux'
-{Router, Route} = require 'react-router'
-{ConnectedRouter} = require 'react-router-redux'
+import {$} from 'myutil'
+import {Provider} from 'react-redux'
+import {Router, Route} from 'react-router'
+import {ConnectedRouter} from 'react-router-redux'
 
-{ApolloProvider} = require 'react-apollo'
-{ApolloClient} = require 'apollo-client'
-{HttpLink} = require 'apollo-link-http'
-{InMemoryCache} = require 'apollo-cache-inmemory'
+import {ApolloProvider} from 'react-apollo'
+import {ApolloClient} from 'apollo-client'
+import {HttpLink} from 'apollo-link-http'
+import {InMemoryCache} from 'apollo-cache-inmemory'
 
-{API} = require 'myconstants'
-store = require 'store'
-history = require 'myhistory'
+import {API} from 'myconstants'
+import store from 'store'
+import history from 'myhistory'
 
-App = require 'layouts/App'
+import App from 'layouts/App'
 
 client = new ApolloClient
   link: new HttpLink
@@ -27,4 +27,4 @@ Root = ->
       $ ConnectedRouter, {history},
         $ Route, component: App
 
-module.exports = Root
+export default Root

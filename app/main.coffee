@@ -1,18 +1,19 @@
 # The main entry point. You shouldn't touch this.
-require 'react-hot-loader/patch'
+import 'react-hot-loader/patch'
 
 # Load vendor and global CSS.
-require 'Skeleton/css/normalize.css'
-require 'Skeleton/css/skeleton.css'
-require 'styles'
+import 'Skeleton/css/normalize.css'
+import 'Skeleton/css/skeleton.css'
+import 'styles'
 
-{$} = require 'myutil'
-{render} = require 'react-dom'
-{AppContainer} = require 'react-hot-loader'
+import {$} from 'myutil'
+import {render} from 'react-dom'
+import {AppContainer} from 'react-hot-loader'
+import Root from 'Root'
 
 # Render the root element.
 root = document.getElementById 'react-root'
-start = -> render ($ AppContainer, 0, $ require 'Root'), root
+start = -> render ($ AppContainer, 0, $ Root), root
 start()
 
 # Set up hot reloading.

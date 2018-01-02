@@ -1,10 +1,9 @@
 # 404 page.
 
-{$} = require 'myutil'
+import {$} from 'myutil'
+import {Helmet} from 'react-helmet'
 
-{Helmet} = require 'react-helmet'
-
-s = require './style'
+import s from './style'
 
 NotFoundLayout = ->
   $.main className: s.errorMain,
@@ -15,4 +14,4 @@ NotFoundLayout = ->
     $.summary className: s.errorMessage,
       'not found'
 
-module.exports = NotFoundLayout
+export default NotFoundLayout

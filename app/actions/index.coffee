@@ -1,9 +1,9 @@
 # Simple actions.
 
-{fromPairs} = require 'lodash'
-{createAction} = require 'redux-act'
+import {fromPairs} from 'lodash'
+import {createAction} from 'redux-act'
 
 # Generate action map.
-module.exports = fromPairs [
+export default fromPairs [
   'queryChange'
 ].map (action) -> [action, createAction action]

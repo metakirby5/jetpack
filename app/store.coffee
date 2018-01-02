@@ -1,19 +1,20 @@
 # Configures the store.
 
-{createStore, applyMiddleware, compose} = require 'redux'
-{routerMiddleware} = require 'react-router-redux'
-{assignAll} = require 'redux-act'
-{default: thunk} = require 'redux-thunk'
+import {createStore, applyMiddleware, compose} from 'redux'
+import {routerMiddleware} from 'react-router-redux'
+import {assignAll} from 'redux-act'
+import thunk from 'redux-thunk'
 
-reducers = require 'reducers'
-actions = require 'actions'
-history = require 'myhistory'
+import reducers from 'reducers'
+import actions from 'actions'
+import history from 'myhistory'
 
 # Activate dev tools.
-if process.env.NODE_ENV is 'development'
-  compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? compose
+doCompose = if process.env.NODE_ENV is 'development'
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? compose
+else compose
 
-store = createStore reducers, compose applyMiddleware(
+store = createStore reducers, doCompose applyMiddleware(
   thunk
   routerMiddleware history
 )
@@ -23,6 +24,6 @@ assignAll actions, store
 
 # Set up hot reloading.
 if module.hot
-  module.hot.accept 'reducers', -> store.replaceReducer require 'reducers'
+  module.hot.accept 'reducers', -> store.replaceReducer reducers
 
-module.exports = store
+export default store

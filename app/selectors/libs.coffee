@@ -1,11 +1,10 @@
 # Selectors for libs.
 
-{createSelector: cs} = require 'reselect'
+import {createSelector as cs} from 'reselect'
+import {apollo, q} from 'selectors'
 
-{sgql, $query} = require 'selectors'
-
-module.exports =
-  filteredByQuery: cs $query, sgql('libs'), (query, libs) ->
+export filteredByQuery =
+  cs q.query, apollo('libs'), (query, libs) ->
     query = query.trim().toLowerCase()
     if query.length
       libs = libs.filter (lib) -> lib.name.toLowerCase().match query

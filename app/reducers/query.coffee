@@ -1,9 +1,8 @@
 # Reducer for query.
 
-{createReducer} = require 'redux-act'
+import {createReducer} from 'redux-act'
+import a from 'actions'
 
-{queryChange} = require 'actions'
-
-module.exports = createReducer (act) ->
-  act queryChange, (state, payload) -> payload
+export default createReducer (act) ->
+  act a.queryChange, (state, payload) -> payload
 , ''
