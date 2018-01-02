@@ -6,7 +6,7 @@
   "scripts": {
     "start": "bin/www # localhost:3000",
     "dev": "(webpack-dev-server & nodemon) # localhost:3000",
-    "build": "rm dist/* && webpack",
+    "build": "rm -f dist/* && webpack",
     "analyze": "webpack",
     "test": "webpack && mocha test/main.js \"server/**/*.spec.*\"",
     "test:watch": "(webpack --watch >/dev/null & mocha --watch --reporter min test/main.js \"server/**/*.spec.*\")",
