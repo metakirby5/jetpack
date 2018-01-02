@@ -104,7 +104,13 @@ config =
     ,
       # Coffeescript
       test: /\.coffee$/
-      loaders: ['coffee-loader']
+      loaders: [
+        loader: 'babel-loader'
+        options:
+          plugins: ['lodash']
+      ,
+        'coffee-loader'
+      ]
     ,
       # GraphQL
       test: /\.gql$/
