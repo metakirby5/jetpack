@@ -1,13 +1,11 @@
 # Main app frame.
 
-import {$} from 'myutil'
+import {$, load} from 'myutil'
 import {Switch, Route} from 'react-router'
 import {Link} from 'react-router-dom'
 import {Helmet} from 'react-helmet'
 
 import s from './style'
-import LibList from 'layouts/LibList'
-import NotFound from 'layouts/NotFound'
 
 App = ->
   $.div 0,
@@ -28,7 +26,9 @@ App = ->
           $.li 0,
             $ Link, to: '/404', '404 link'
       $ Switch, 0,
-        $ Route, exact: true, path: '/', component: LibList
-        $ Route, path: '*', component: NotFound
+        $ Route, exact: true, path: '/', component: load ->
+          `import('layouts/LibList')`
+        $ Route, path: '*', component: load ->
+          `import('layouts/NotFound')`
 
 export default App
