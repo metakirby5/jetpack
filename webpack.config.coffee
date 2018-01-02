@@ -138,11 +138,6 @@ config =
     # Generate HTML
     new HtmlWebpackPlugin
       template: path.join SRC_PATH, "#{INDEX}.pug"
-
-    # Separate vendor bundle
-    new webpack.optimize.CommonsChunkPlugin
-      name: VENDOR
-      minChunks: isVendor
   ]
 
 withLint = (config) ->
@@ -219,6 +214,9 @@ switch ENV
   when 'build', 'analyze'  # Production
     console.log 'Building production scripts...'
     config = merge config,
+      output:
+        filename: '[name].[chunkhash].js'
+
       plugins: [
         # Production environment variable
         new webpack.DefinePlugin
@@ -227,6 +225,18 @@ switch ENV
 
         # Optimize chunking
         new webpack.optimize.OccurrenceOrderPlugin()
+
+        # Consistent module IDs
+        new webpack.HashedModuleIdsPlugin()
+
+        # Separate vendor bundle
+        new webpack.optimize.CommonsChunkPlugin
+          name: VENDOR
+          minChunks: isVendor
+
+        # Manifest
+        new webpack.optimize.CommonsChunkPlugin
+          name: 'manifest'
 
         # Minify
         new UglifyJsPlugin()
