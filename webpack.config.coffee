@@ -3,6 +3,7 @@ webpack = require 'webpack'
 merge = require 'webpack-merge'
 HtmlWebpackPlugin = require 'html-webpack-plugin'
 UglifyJsPlugin = require 'uglifyjs-webpack-plugin'
+{BundleAnalyzerPlugin} = require 'webpack-bundle-analyzer'
 
 projectConfig = require './config'
 
@@ -209,7 +210,7 @@ switch ENV
       ]
     config = withHot config
 
-  when 'build'  # Production
+  when 'build', 'analyze'  # Production
     console.log 'Building production scripts...'
     config = merge config,
       plugins: [
@@ -224,6 +225,10 @@ switch ENV
         # Minify
         new UglifyJsPlugin()
       ]
+    if ENV is 'analyze'
+      console.log 'Analyzing bundle...'
+      config = merge config,
+        plugins: [new BundleAnalyzerPlugin()]
 
   when 'test', 'test:watch', 'test:browser'  # Test
     process.stdout.write 'Testing '

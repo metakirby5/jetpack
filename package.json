@@ -7,6 +7,7 @@
     "start": "bin/www # localhost:3000",
     "dev": "(webpack-dev-server & nodemon) # localhost:3000",
     "build": "webpack",
+    "analyze": "webpack",
     "test": "webpack && mocha test/main.js \"server/**/*.spec.*\"",
     "test:watch": "(webpack --watch >/dev/null & mocha --watch --reporter min test/main.js \"server/**/*.spec.*\")",
     "test:browser": "webpack-dev-server # localhost:8080"
@@ -68,6 +69,7 @@
     "uglifyjs-webpack-plugin": "^1.1.4",
     "url-loader": "^0.6.2",
     "webpack": "^3.8.0",
+    "webpack-bundle-analyzer": "^2.9.1",
     "webpack-dev-server": "^2.9.0",
     "webpack-merge": "^4.1.1"
   },

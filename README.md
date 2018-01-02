@@ -23,6 +23,8 @@ Example adapted from http://gaearon.github.io/react-hot-loader/.
 - To run the dev servers: `yarn dev`
   - The main server is at `localhost:3000`, which proxies everything but
     `/api` to `webpack-dev-server` at `localhost:8080`
+- To analyze the bundle: `yarn analyze`
+  - The production bundle is analyzed with `webpack-bundle-analyzer`.
 - To test: `yarn test`, `yarn test:watch`, or `yarn test:browser`
   - Note: `yarn test:browser` will only pick up tests in `app/`.
 - To build deduplicated, minified html/scripts into `dist/`: `yarn build`
