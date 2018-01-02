@@ -15,8 +15,8 @@ Minimal, opinionated, from-scratch webpack boilerplate with:
     - Source maps
     - Deduplication
     - Minification
-    - Vendor code splitting
     - Tree-shaking
+    - Vendor code splitting
     - Dynamic import code splitting
     - webpack-bundle-analyzer
   - Probably some other goodies I forgot
