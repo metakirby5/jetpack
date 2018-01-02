@@ -35,6 +35,8 @@ results.
 
 All files are in `app/` unless otherwise noted.
 
+- Only use ES6 import/export, not `require`, to allow tree-shaking.
+  - The exception is `require.context` for dynamic utils.
 - All React components are pure functional components with Redux and Apollo.
 - The entry point is `main.coffee`, which also sets up hot reloading.
 - The root component used for routing, etc. can be found at `Root.coffee`.
@@ -59,6 +61,8 @@ All files are in `app/` unless otherwise noted.
 
 # Server conventions
 
+- Only use `require`, not ES6 import/export, since `node` doesn't support it
+  yet.
 - GraphQL things go in `graphql/`.
   - Schemas go in `schema/`.
   - Queries go in `query/`.
@@ -71,7 +75,3 @@ All files are in `app/` unless otherwise noted.
 - Tests are considered any file within the `server` tree ending with `.spec.*`,
   where `*` is any extension (e.g. `coffee`). These are all automatically
   picked up by `yarn test` and `yarn test:watch`, but *not* `yarn test:browser`.
-
-# TODO
-
-- [ ] Switch from `require` to `import` and `export`.
