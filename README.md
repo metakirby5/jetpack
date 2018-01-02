@@ -10,8 +10,15 @@ Minimal, opinionated, from-scratch webpack boilerplate with:
   - Stylus + Nib + Stylint
   - Skeleton CSS
   - Pug
-  - Source maps + React Hot Loader for development
-  - Deduplication + minification for production
+  - React Hot Loader
+  - Webpack:
+    - Source maps
+    - Deduplication
+    - Minification
+    - Vendor code splitting
+    - Tree-shaking
+    - Dynamic import code splitting
+    - webpack-bundle-analyzer
   - Probably some other goodies I forgot
 
 Example adapted from http://gaearon.github.io/react-hot-loader/.
@@ -40,6 +47,7 @@ All files are in `app/` unless otherwise noted.
 - Only use ES6 import/export, not `require`, to allow tree-shaking.
   - The exception is `require.context` for dynamic utils.
 - All React components are pure functional components with Redux and Apollo.
+- Components should be created with the `$` helper from `myutil`.
 - The entry point is `main.coffee`, which also sets up hot reloading.
 - The root component used for routing, etc. can be found at `Root.coffee`.
 - Each subcomponent gets a folder in `components/` with the following
