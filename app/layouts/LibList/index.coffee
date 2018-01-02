@@ -1,15 +1,14 @@
 # The page layout for LibList.
 
-{createElement: ce} = require 'react'
-d = require 'react-dom-factories'
+{$} = require 'myutil'
 
 s = require './style'
 LibList = require 'components/LibList'
 
 LibListLayout = ->
-  d.div className: s.container,
+  $.div className: s.container,
     'Here is the library list.'
-    d.div className: s.main,
-      ce LibList
+    $.div className: s.main,
+      $ LibList
 
 module.exports = LibListLayout

@@ -6,13 +6,13 @@ require 'Skeleton/css/normalize.css'
 require 'Skeleton/css/skeleton.css'
 require 'styles'
 
-{AppContainer} = require 'react-hot-loader'
-{createElement: ce} = require 'react'
+{$} = require 'myutil'
 {render} = require 'react-dom'
+{AppContainer} = require 'react-hot-loader'
 
 # Render the root element.
 root = document.getElementById 'react-root'
-start = -> render (ce AppContainer, 0, ce require 'Root'), root
+start = -> render ($ AppContainer, 0, $ require 'Root'), root
 start()
 
 # Set up hot reloading.

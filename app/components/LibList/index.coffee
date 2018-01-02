@@ -1,6 +1,6 @@
 # A searchable listing of libs.
 
-d = require 'react-dom-factories'
+{$} = require 'myutil'
 
 {connect} = require 'react-redux'
 {compose, graphql} = require 'react-apollo'
@@ -24,20 +24,20 @@ gqlConn = graphql LibsQuery
 
 # The functional component.
 LibList = (s) ->
-  d.div 0,
-    d.input
+  $.div 0,
+    $.input
       type: 'text'
       value: s.query
       onChange: (e) -> s.onQueryChange e.target.value
       placeholder: 'Type to search'
     if s.data.loading
-      d.div 0,
+      $.div 0,
         'LOADING...'
     else
       libs = filteredByQuery s
-      d.ul 0, libs.map (lib, i) ->
-        d.li key: i,
-          d.a href: lib.url, target: '_blank',
+      $.ul 0, libs.map (lib, i) ->
+        $.li key: i,
+          $.a href: lib.url, target: '_blank',
             lib.name
 
 module.exports = (compose gqlConn, reduxConn) LibList

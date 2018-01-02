@@ -1,7 +1,6 @@
 # The base element. In this case, it is a Redux provider + router.
 
-{createElement: ce} = require 'react'
-
+{$} = require 'myutil'
 {Provider} = require 'react-redux'
 {Router, Route} = require 'react-router'
 {ConnectedRouter} = require 'react-router-redux'
@@ -23,9 +22,9 @@ client = new ApolloClient
   cache: new InMemoryCache()
 
 Root = ->
-  ce Provider, {store},
-    ce ApolloProvider, {client},
-      ce ConnectedRouter, {history},
-        ce Route, component: App
+  $ Provider, {store},
+    $ ApolloProvider, {client},
+      $ ConnectedRouter, {history},
+        $ Route, component: App
 
 module.exports = Root
