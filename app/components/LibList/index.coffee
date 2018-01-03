@@ -11,16 +11,10 @@ import LibsQuery from 'query/libs'
 import ApolloLoadable from 'components/ApolloLoadable'
 
 # The redux connection.
-reduxConn = connect(
-  (state) ->
-    query: q.query state
-,
-  ->
-    onQueryChange: a.queryChange
-)
-
-# The GraphQL query connection.
-gqlConn = graphql LibsQuery
+redux = connect (state) ->
+  query: q.query state
+, ->
+  onQueryChange: a.queryChange
 
 # The functional component.
 LibList = (p) ->
@@ -37,4 +31,4 @@ LibList = (p) ->
           $.a href: lib.url, target: '_blank',
             lib.name
 
-export default (compose gqlConn, reduxConn) LibList
+export default (compose redux, graphql LibsQuery) LibList
