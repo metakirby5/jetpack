@@ -9,7 +9,7 @@ import Loadable from 'components/Loadable'
 import s from './style'
 
 App = ->
-  $.div 0,
+  $ $,
     $ Helmet, 0,
       $.meta
         charSet: 'utf-8'

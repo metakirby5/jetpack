@@ -1,6 +1,6 @@
 # Utility functions.
-import {createElement} from 'react'
-import {merge} from 'lodash'
+import {createElement, Fragment} from 'react'
+import {merge, head, tail} from 'lodash'
 import {combineReducers} from 'redux'
 
 # Reducer boilerplate for Object.assign.
@@ -17,6 +17,12 @@ export autoReduce = (ctx, additional = {}) ->
 
 # Wrapper around React.createElement.
 # $.div args... -> React.createElement('div', args...)
+# $ $, args... -> React.createElement(React.Fragment, args...)
 # $ Element, args... -> React.createElement(Element, args...)
 export $ = new Proxy createElement,
-  get: (target, prop) -> (args...) -> createElement prop, args...
+  get: (target, prop) -> (args...) -> target prop, args...
+  apply: (target, that, args) ->
+    if $ is head args
+      target Fragment, 0, (tail args)...
+    else
+      target args...

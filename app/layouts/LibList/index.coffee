@@ -8,7 +8,6 @@ import LibList from 'components/LibList'
 LibListLayout = ->
   $.div className: s.container,
     'Here is the library list.'
-    $.div className: s.main,
-      $ LibList
+    $ LibList
 
 export default LibListLayout
