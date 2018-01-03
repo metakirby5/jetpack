@@ -17,7 +17,7 @@ export autoReduce = (ctx, additional = {}) ->
 
 # Wrapper around React.createElement.
 # $.div args... -> React.createElement('div', args...)
-# $ $, args... -> React.createElement(React.Fragment, args...)
+# $ $, args... -> React.createElement(React.Fragment, 0, args...)
 # $ Element, args... -> React.createElement(Element, args...)
 export $ = new Proxy createElement,
   get: (target, prop) -> (args...) -> target prop, args...
