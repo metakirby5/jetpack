@@ -7,9 +7,9 @@ import Spinner from 'components/Spinner'
 import ErrorMessage from 'components/ErrorMessage'
 import s from './style'
 
-LoadingSpinner = (p) ->
+LoadingSpinner = ({error}) ->
   $.div className: s.spinnerContainer,
-    if p.error
+    if error
       $ ErrorMessage
     else
       $ Spinner

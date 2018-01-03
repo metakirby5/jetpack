@@ -8,8 +8,7 @@ import {q} from 'selectors'
 import a from 'actions'
 import {filteredByQuery} from 'selectors/libs'
 import LibsQuery from 'query/libs'
-import Spinner from 'components/Spinner'
-import ErrorMessage from 'components/ErrorMessage'
+import ApolloLoadable from 'components/ApolloLoadable'
 
 # The redux connection.
 reduxConn = connect(
@@ -31,11 +30,7 @@ LibList = (p) ->
       value: p.query
       onChange: (e) -> p.onQueryChange e.target.value
       placeholder: 'Type to search'
-    if p.data.loading
-      $ Spinner
-    else if p.data.error
-      $ ErrorMessage
-    else
+    $ ApolloLoadable, data: p.data, loader: ->
       libs = filteredByQuery p
       $.ul 0, libs.map (lib, i) ->
         $.li key: i,
