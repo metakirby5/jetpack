@@ -1,10 +1,11 @@
 # Main app frame.
 
-import {$, load} from 'myutil'
+import {$} from 'myutil'
 import {Switch, Route} from 'react-router'
 import {Link} from 'react-router-dom'
 import {Helmet} from 'react-helmet'
 
+import Loadable from 'components/Loadable'
 import s from './style'
 
 App = ->
@@ -26,12 +27,12 @@ App = ->
           $.li 0,
             $ Link, to: '/404', '404 link'
       $ Switch, 0,
-        $ Route, exact: true, path: '/', component: load ->
-          `import(
+        $ Route, exact: true, path: '/', component: Loadable
+          loader: -> `import(
             /* webpackChunkName: 'layouts/LibList' */
             'layouts/LibList')`
-        $ Route, path: '*', component: load ->
-          `import(
+        $ Route, path: '*', component: Loadable
+          loader: -> `import(
             /* webpackChunkName: 'layouts/NotFound' */
             'layouts/NotFound')`
 

@@ -8,6 +8,7 @@ import {q} from 'selectors'
 import a from 'actions'
 import {filteredByQuery} from 'selectors/libs'
 import LibsQuery from 'query/libs'
+import Spinner from 'components/Spinner'
 
 # The redux connection.
 reduxConn = connect(
@@ -30,8 +31,7 @@ LibList = (p) ->
       onChange: (e) -> p.onQueryChange e.target.value
       placeholder: 'Type to search'
     if p.data.loading
-      $.div 0,
-        'LOADING...'
+      $ Spinner
     else
       libs = filteredByQuery p
       $.ul 0, libs.map (lib, i) ->
