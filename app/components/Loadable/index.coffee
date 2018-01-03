@@ -4,13 +4,13 @@ import {$} from 'myutil'
 import Loadable from 'react-loadable'
 
 import Spinner from 'components/Spinner'
+import ErrorMessage from 'components/ErrorMessage'
 import s from './style'
 
 LoadingSpinner = (p) ->
   $.div className: s.spinnerContainer,
     if p.error
-      $.div className: s.error,
-        'Error!'
+      $ ErrorMessage
     else
       $ Spinner
 
