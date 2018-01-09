@@ -11,15 +11,15 @@ schemadir = (args...) -> path.join config.schema, args...
 
 # Get API files.
 apis = readdirSync schemadir()
-  .filter((s) -> s.endsWith('.gql'))
-  .map((s) -> s.slice 0, -4)
+  .filter (s) -> s.endsWith('.gql')
+  .map (s) -> s.slice 0, -4
 
 # Programmatically create API.
-[schemas, resolvers] = zip(apis.map((k) -> [
+[schemas, resolvers] = zip apis.map((k) -> [
   readFileSync (schemadir "#{k}.gql"), 'UTF8'
   require "./#{k}.coffee"
-])...)
+])...
 
 module.exports = makeExecutableSchema
   typeDefs: schemas
-  resolvers: merge(resolvers...)
+  resolvers: merge resolvers...
