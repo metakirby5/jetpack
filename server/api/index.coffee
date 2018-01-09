@@ -4,6 +4,7 @@ path = require 'path'
 {readdirSync, readFileSync} = require 'fs'
 {filter, zip, merge} = require 'lodash'
 {makeExecutableSchema} = require 'graphql-tools'
+{mergeTypes} = require 'merge-graphql-schemas'
 
 config = require '../../config'
 
@@ -21,5 +22,5 @@ apis = readdirSync schemadir()
 ])...
 
 module.exports = makeExecutableSchema
-  typeDefs: schemas
+  typeDefs: mergeTypes schemas
   resolvers: merge resolvers...
