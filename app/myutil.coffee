@@ -1,7 +1,10 @@
 # Utility functions.
 import {createElement, Fragment} from 'react'
-import {merge, head, tail} from 'lodash'
+import {merge as ldMerge, head, tail} from 'lodash'
 import {combineReducers} from 'redux'
+
+# Non-mutative merge.
+export merge = (args...) -> ldMerge {}, args...
 
 # Reducer boilerplate for Object.assign.
 export assign = (transform = (state, payload) -> payload) ->
