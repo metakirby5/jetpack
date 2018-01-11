@@ -1,6 +1,5 @@
 # An apollo HOC with a spinner and error handling.
 
-import {IS_DEV} from 'myconstants'
 import {$} from 'myutil'
 
 import Spinner from 'components/Spinner'
@@ -11,8 +10,7 @@ ApolloLoadable = ({data, loader}) ->
     $ Spinner
   else if data.error
     $ ErrorMessage,
-      if IS_DEV
-        text: data.error.message
+      devText: data.error.message
   else
     $ loader, data
 
