@@ -1,5 +1,6 @@
 # Configures the store.
 
+import {IS_DEV} from 'myconstants'
 import {createStore, applyMiddleware, compose} from 'redux'
 import {routerMiddleware} from 'react-router-redux'
 import {assignAll} from 'redux-act'
@@ -10,7 +11,7 @@ import actions from 'actions'
 import history from 'myhistory'
 
 # Activate dev tools.
-doCompose = if process.env.NODE_ENV is 'development'
+doCompose = if IS_DEV
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? compose
 else compose
 

@@ -1,5 +1,6 @@
 # A Loadable HOC.
 
+import {IS_DEV} from 'myconstants'
 import {$} from 'myutil'
 import Loadable from 'react-loadable'
 
@@ -10,7 +11,9 @@ import s from './style'
 LoadingSpinner = ({error}) ->
   $.div className: s.spinnerContainer,
     if error
-      $ ErrorMessage
+      $ ErrorMessage,
+        if IS_DEV
+          text: error
     else
       $ Spinner
 

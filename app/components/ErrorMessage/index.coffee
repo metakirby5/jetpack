@@ -6,6 +6,6 @@ import s from './style'
 
 ErrorMessage = ({text = 'Error!'}) ->
   $.div className: s.error,
-    'Error!'
+    text
 
 export default ErrorMessage
