@@ -1,7 +1,7 @@
 # Selectors for libs.
 
 import {createSelector as cs} from 'reselect'
-import {apollo, q} from 'selectors'
+import q, {apollo} from 'selectors'
 
 export filteredByQuery =
   cs q.query, apollo('libs'), (query, libs) ->

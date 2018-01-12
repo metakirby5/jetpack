@@ -4,7 +4,7 @@ import {$} from 'myutil'
 import {connect} from 'react-redux'
 import {compose, graphql} from 'react-apollo'
 
-import {q} from 'selectors'
+import q from 'selectors'
 import a from 'actions'
 import {filteredByQuery} from 'selectors/libs'
 import LibsQuery from 'query/libs'
