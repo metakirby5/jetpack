@@ -43,7 +43,7 @@
     "history": "^4.7.2",
     "html-loader": "^0.5.1",
     "html-webpack-plugin": "^2.30.1",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.13",
     "merge-graphql-schemas": "^1.4.0",
     "minimatch": "^3.0.3",
     "mocha": "^3.0.0",
