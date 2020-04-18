@@ -1,0 +1,5 @@
+async-only: true
+check-leaks: true
+inline-diffs: true
+throw-deprecation: true
+require: coffeescript/register

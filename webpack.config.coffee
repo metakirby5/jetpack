@@ -193,7 +193,7 @@ devServerOpts =
 withHot = (config) ->
   merge config,
     module:
-      loaders: [
+      rules: [
         test: /\.coffee$/
         loaders: ['react-hot-loader/webpack']
       ]
@@ -212,6 +212,8 @@ withHot = (config) ->
 switch ENV
   when 'dev'  # Development
     console.log 'Running development server...'
+    config.mode = 'development'
+
     config = merge config,
       # Source maps
       devtool: 'cheap-module-eval-source-map'
@@ -226,6 +228,8 @@ switch ENV
 
   when 'build', 'analyze'  # Production
     console.log 'Building production scripts...'
+    config.mode = 'production'
+
     config = merge config,
       output:
         filename: '[name].[chunkhash:5].js'
@@ -265,6 +269,7 @@ switch ENV
 
   when 'test', 'test:watch', 'test:browser'  # Test
     process.stdout.write 'Testing '
+    config.mode = 'production'
 
     config = merge config,
       output:
