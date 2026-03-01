@@ -44,7 +44,7 @@
     "html-webpack-plugin": "^4.2.0",
     "lodash": "^4.17.23",
     "merge-graphql-schemas": "^1.7.8",
-    "minimatch": "^10.2.1",
+    "minimatch": "^10.2.3",
     "mocha": "^10.2.0",
     "mocha-junit-reporter": "^1.15.0",
     "mocha-loader": "^5.1.5",
